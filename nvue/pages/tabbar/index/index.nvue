@@ -1,0 +1,33 @@
+<template>
+	<view>
+		<!--导航栏 -->
+		<navigator-bar title="微信" number="10"></navigator-bar>
+	</view>
+</template>
+
+<script>
+	import navigatorBar from "@/components/ui/navigation-bar.vue"
+	export default {
+		components: {
+			navigatorBar
+		},
+		data() {
+			return {
+				statusBarHeight: 0
+			}
+		},
+		onLoad() {
+			// #ifdef APP-PLUS-NVUE
+			this.statusBarHeight = plus.navigator.getStatusbarHeight()
+			// #endif
+
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style>
+
+</style>

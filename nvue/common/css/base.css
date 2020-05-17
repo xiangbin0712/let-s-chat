@@ -1,0 +1,91 @@
+.iconfont {
+	font-family: iconfont;
+}
+
+/* flex */
+.flex {
+	display: flex;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.flex-row {
+	flex-direction: row !important;
+}
+
+.flex-column {
+	flex-direction: column !important;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+
+
+.w-100 {
+	width: 750rpx;
+}
+
+.h-100 {
+	height: 100%;
+}
+
+/* margin */
+.mr-0 { margin-right: 0; }
+.ml-1 { margin-left: 10rpx; }
+.ml-2 { margin-left: 20rpx; }
+.ml-3 { margin-left: 30rpx; }
+.ml-4 { margin-left: 40rpx; }
+.ml-5 { margin-left: 50rpx; }
+
+/* 文字大小 */
+.font-small { font-size: 20upx;}
+.font-sm { font-size: 25upx;}
+.font { font-size: 30upx;}
+.font-md { font-size: 35upx;}
+.font-lg { font-size: 40upx;}
+
+
+/* 背景颜色 */
+.bg-primary { background-color: #007bff;}
+.bg-hover-primary:hover{ background-color: #0062cc;}
+.bg-secondary { background-color: #6c757d;}
+.bg-hover-secondary:hover{ background-color: #545b62;}
+.bg-success { background-color: #28a745;}
+.bg-hover-success { background-color: #1e7e34;}
+.bg-info { background-color: #17a2b8;}
+.bg-hover-info { background-color: #117a8b;}
+.bg-warning { background-color: #ffc107;}
+.bg-hover-warning { background-color: #d39e00;}
+.bg-danger { background-color: #dc3545;}
+.bg-hover-danger{ background-color: #bd2130;}
+.bg-light { background-color: #f8f9fa;}
+.bg-hover-light{ background-color: #dae0e5;}
+.bg-dark { background-color: #343a40;}
+.bg-hover-dark { background-color: #1d2124;}
+.bg-white { background-color: #ffffff;}
+.bg-transparent { background-color: transparent;}
+
+.border {
+	border-width: 1rpx;
+	border-style: solid;
+	border-color: red;
+}
