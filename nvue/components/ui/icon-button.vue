@@ -1,5 +1,5 @@
 <template>
-	<view class="flex-center iconfont" hover-class="bg-hover-light" style="height: 90rpx; width: 90rpx;">
+	<view @click="$emit('click')" class="flex-center iconfont" hover-class="bg-hover-light" style="height: 90rpx; width: 90rpx;">
 		<text class="iconfont">{{_icon}}</text>
 	</view>
 </template>
@@ -24,6 +24,4 @@
 </script>
 
 <style>
-	/* @import url("../common/css/base.css"); */
-	/* @import url("../common/css/common.css"); */
 </style>
