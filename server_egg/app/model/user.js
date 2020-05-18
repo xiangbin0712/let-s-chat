@@ -1,5 +1,5 @@
+// app/model/user.js
 "use strict";
-// const crypto = require('crypto');
 module.exports = (app) => {
   const { STRING, INTEGER, DATE, ENUM, TEXT } = app.Sequelize;
   // 配置（重要：一定要配置详细，一定要！！！）
@@ -32,17 +32,6 @@ module.exports = (app) => {
       allowNull: false,
       defaultValue: "",
     },
-    // password: {
-    //   type: STRING(200),
-    //   allowNull: false,
-    //   defaultValue: "",
-    //   set(val) {
-    //     const hmac = crypto.createHash("sha256", app.config.crypto.secret);
-    //     hmac.update(val);
-    //     let hash = hmac.digest("hex");
-    //     this.setDataValue("password", hash);
-    //   },
-    // },
     avatar: {
       type: STRING(200),
       allowNull: true,
@@ -81,23 +70,5 @@ module.exports = (app) => {
     created_at: DATE,
     updated_at: DATE,
   });
-
-  // 定义关联关系
-  //   User.associate = function (model) {
-  //     User.hasMany(app.model.Friend, {
-  //       as: "bfriends", // 当前用户的被好友
-  //       foreignKey: "friend_id",
-  //     });
-
-  //     User.hasMany(app.model.Friend, {
-  //       as: "friends", // 当前用户的好友
-  //       foreignKey: "user_id",
-  //     });
-
-  //     User.hasMany(app.model.Moment, {
-  //       foreignKey: "user_id",
-  //     });
-  //   };
-
   return User;
 };

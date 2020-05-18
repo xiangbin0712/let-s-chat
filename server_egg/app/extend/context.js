@@ -1,4 +1,4 @@
-var qr = require("qr-image");
+// var qr = require("qr-image");
 module.exports = {
   // api返回成功
   apiSuccess(data = "", msg = "ok", code = 200) {
