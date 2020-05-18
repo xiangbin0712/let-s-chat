@@ -8,7 +8,7 @@
 			<!-- left -->
 			<view class="font-md flex flex-row ml-3 ">
 				<!-- 标题 -->
-				<text v-if="title">{{ title }}11</text>
+				<text v-if="title">{{ title }}</text>
 				<text v-if="number">({{ number }})</text>
 			</view>
 			<!-- right -->

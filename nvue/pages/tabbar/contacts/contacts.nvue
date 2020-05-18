@@ -1,22 +1,54 @@
 <template>
 	<view>
-		content
+		<!--导航栏 -->
+		<navigator-bar title="通讯录"></navigator-bar>
+		<!-- 联系人列表 -->
+		<view class="lists">
+			<!-- 固定的列表 -->
+			<view class="list  align-center  flex flex-row" v-for="(item, i) in topMenu" :key="i">
+				<image class="avatar ml-3 mr-2" src="../../../static/logo.png" mode=""></image>
+				<view class="right border-bottom text-ellipsis">{{ item.name }}</view>
+			</view>
+			<!-- 联系人 -->
+			<view class="list  align-center  flex flex-row" v-for="(item, i) in contacts" :key="i">
+				<image class="avatar ml-3 mr-2" src="../../../static/logo.png" mode=""></image>
+				<view class="right border-bottom text-ellipsis">{{ item.name }}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+export default {
+	components: {
+		navigatorBar
+	},
+	data() {
+		return {
+			topMenu: [{ name: '新的朋友' }, { name: '群聊' }, { name: '标签' }],
+			contacts: []
+		};
+	},
+	methods: {}
+};
 </script>
 
-<style>
+<style scoped>
+.avatar {
+	height: 80rpx;
+	width: 80rpx;
+}
+.right {
+	/* margin-top: 30rpx; */
+	/* margin-bottom: 30rpx; */
+	padding-top: 20rpx;
+	padding-bottom: 20rpx;
+	flex: 1;
+}
 
+.right-container {
+	height: 80rpx;
+	width: 80rpx;
+}
 </style>
