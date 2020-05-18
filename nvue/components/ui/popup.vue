@@ -4,13 +4,14 @@
 		<view v-if="mask" class="mask" :style="maskStyle" @click="hide"></view>
 		<!-- 弹出框内容 -->
 		<!-- bottom -->
-		<view v-if="type == 'bottom'" class="content" :style="bottomStyle"><slot></slot></view>
+		<!-- <view v-if="type == 'bottom'" class="content" :style="bottomStyle"><slot></slot></view> -->
 		<!-- free -->
-		<view v-if="type == 'free'" class="content animated" :style="freeStyle"><slot></slot></view>
+		<view v-if="type == 'free'" class="content animated" ref="popup" :style="freeStyle"><slot></slot></view>
 	</view>
 </template>
 
 <script>
+const animation = weex.requireModule('animation');
 export default {
 	props: {
 		// 是否显示
@@ -80,7 +81,6 @@ export default {
 		},
 		freeStyle() {
 			return `background-color:${this.bg};
-					width:${this.width}rpx;height:${this.height};
 					left:${this.x}px;top:${this.y}px;`;
 		}
 	},
@@ -90,6 +90,27 @@ export default {
 			this.y = y;
 			this.isOut(x, y);
 			this.show = true;
+
+			// 添加动画
+			// #ifdef APP-PLUS-NVUE
+			this.$nextTick(() => {
+				animation.transition(
+					this.$refs.popup,
+					{
+						styles: {
+							transform: 'scale(1,1)',
+							transformOrigin: 'right,top',
+							opacity: 1
+						},
+						duration: 200, //ms
+						timingFunction: 'ease'
+					},
+					() => {
+						console.log('动画执行结束');
+					}
+				);
+			});
+			// #endif
 		},
 		close() {
 			this.show = false;
@@ -125,5 +146,12 @@ export default {
 }
 .content {
 	position: fixed;
+}
+
+.animated {
+	/* #ifdef APP-PLUS-NVUE */
+	transform: scale(0, 0);
+	opacity: 0;
+	/* #endif */
 }
 </style>

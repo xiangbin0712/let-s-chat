@@ -147,6 +147,10 @@
 	font-size: 40upx;
 }
 
+.text-white {
+	color: #FFFFFF;
+}
+
 /* 文字换行溢出处理 */
 .text-ellipsis {
 	/* #ifndef APP-PLUS-NVUE */
