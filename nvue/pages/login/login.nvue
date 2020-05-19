@@ -1,0 +1,64 @@
+<template>
+	<view class="page login  flex align-center">
+		<view class="form ">
+			<input class=" font-sm input pl-3 pl-3" v-model="username" placeholder="用户名" type="text" value="" />
+			<input class=" font-sm  pl-3 pl-3 input" v-model="password" type="password" placeholder="请输入密码" value="" />
+			<button @click="login" class="button"><text class="text-white font-md">登录</text></button>
+		</view>
+		<view class="other-page flex flex-row  justify-between ">
+			<text class="text-muted font-md">用户注册</text>
+			<text class="text-muted font-md">忘记密码</text>
+		</view>
+	</view>
+</template>
+
+<script>
+	import $http from "@/common/js/http.js"
+export default {
+	data() {
+		return {
+			from: {
+				username: '',
+				password: ''
+			}
+		};
+	},
+	methods: {
+		login() {
+		// 验证
+		$http.post('/login',this.form,{token:false}).then(res=>{
+			console.log(res,"res")
+			
+		})
+		}
+	}
+};
+</script>
+
+<style scoped>
+.login {
+	display: flex;
+	flex: 1;
+}
+.form {
+	width: 690rpx;
+	margin-top: 350rpx;
+}
+
+.other-page {
+	width: 690rpx;
+	margin-top: 50rpx;
+}
+
+.input {
+	background-color: #f1f1f1;
+	margin-bottom: 40rpx;
+	height: 80rpx;
+}
+
+.button {
+	height: 90rpx;
+	background-color: #189f33;
+	margin-top: 40rpx;
+}
+</style>

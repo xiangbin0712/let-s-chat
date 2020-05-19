@@ -1,13 +1,97 @@
-/* 
-.page {
-
-	
+.font-xs {
+	font-size: 12rpx;
 }
 
-.main-bg-color {
-	background-color: #08c060;
+.font-sm {
+	font-size: 14rpx;
 }
-	
-.main-text-color {
+
+.font-md {
+	font-size: 16rpx;
 }
- */
+
+.font-lg {
+	font-size: 18rpx;
+}
+
+/* 字体色 */
+.text-main-color {
+	color: rgba(39, 40, 50, 1);
+}
+
+.text-sec-color {
+	color: rgba(39, 40, 50, 0.6);
+}
+
+.text-three-color {
+	color: rgba(39, 40, 50, 0.4);
+}
+
+/* 背景色 */
+.bg-dark-color {
+	background-color: rgba(39, 40, 50, 0.2);
+}
+
+.bg-color-1 {
+	background-color: rgba(244, 244, 244, 1);
+}
+
+.bg-color-2 {
+	background-color: rgba(243, 244, 246, 1);
+}
+
+
+/* 行为色 */
+.yellow {
+	background-color: rgba(255, 228, 49, 1);
+}
+
+.red {
+	background-color: rgba(255, 93, 91, 1);
+}
+
+.blue {
+	background-color: rgba(87, 153, 255, 1);
+}
+
+/* 圆角 */
+.round-sm {
+	border-radius: 5rpx;
+}
+
+.round-md {
+	border-radius: 10rpx;
+}
+
+.round-lg {
+	border-radius: 20rpx;
+}
+
+.circle {
+	border-radius: 50%;
+}
+
+/* border */
+.border-color {
+	border-color: rgba(39, 40, 50, 0.1);
+}
+
+.border {
+	border-width: 1rpx;
+	border-style: solid;
+	border-color: rgba(39, 40, 50, 0.1);
+}
+
+.border-bottom {
+	border-bottom-width: 1rpx;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(39, 40, 50, 0.1);
+}
+
+
+/* image*/
+image {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
