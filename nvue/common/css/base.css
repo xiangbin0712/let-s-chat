@@ -46,6 +46,9 @@
 	align-items: center;
 }
 
+
+
+
 .flex-wrap {
 	flex-wrap: wrap;
 }
@@ -233,10 +236,11 @@
 
 
 /* 文字大小 */
-.font20 {font-size: 20upx}
-.font25 {font-size: 25upx}
-.font30 {font-size: 30upx}
-.font35 {font-size: 35upx}
+.font-20 {font-size: 20rpx}
+.font-25 {font-size: 25rpx}
+.font-30 {font-size: 30rpx}
+.font-35 {font-size: 35rpx}
+.font-40 {font-size: 40rpx}
 
 .text-bold {
 	font-weight: bold;

@@ -40,6 +40,10 @@
 	background-color: rgba(243, 244, 246, 1);
 }
 
+.bg-white {
+	background-color: #FFFFFF;
+}
+
 
 /* 行为色 */
 .yellow {
@@ -94,4 +98,19 @@ image {
 	display: block;
 	height: 100%;
 	width: 100%;
+}
+
+uni-button:after{
+}
+
+/* temp */
+
+.temp-bg {
+	background-color: rgba(0,0,0,.3);
+}
+
+.temp-border {
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
 }

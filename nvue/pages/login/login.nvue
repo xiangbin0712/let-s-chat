@@ -1,64 +1,68 @@
 <template>
-	<view class="page login  flex align-center">
-		<view class="form ">
-			<input class=" font-sm input pl-3 pl-3" v-model="username" placeholder="用户名" type="text" value="" />
-			<input class=" font-sm  pl-3 pl-3 input" v-model="password" type="password" placeholder="请输入密码" value="" />
-			<button @click="login" class="button"><text class="text-white font-md">登录</text></button>
-		</view>
-		<view class="other-page flex flex-row  justify-between ">
-			<text class="text-muted font-md">用户注册</text>
-			<text class="text-muted font-md">忘记密码</text>
+	<view class="flex login align-center flex-1">
+		<view class="container flex ">
+			<view class="flex-center"><image class="logo" src="../../static/logo.png" mode=""></image></view>
+			<view class="welcome my-5">
+				<text class="title text-bold text-main-color">{{ type == 'login' ? '登录' : '注册' }}</text>
+				<text class="desc font-35 text-three-color mt-1 ">您好,欢迎来到mineChat!</text>
+			</view>
+			<view class="form">
+				<input type="text" class="bg-white input font-30 pl-3   border-bottom" placeholder="用户名" v-model="form.username" />
+				<input type="password" class="bg-white input  font-30  mt-3 pl-3 border-bottom" placeholder="密码" v-model="form.password" />
+				<input type="password" class="bg-white input font-30 pl-3 border-bottom" v-if="type == 'reg'" placeholder="请确认密码" v-model="form.rePassword" />
+				<button class="button circle yellow mt-5">
+					<text class="text-main-color font-35 button-text">{{ type == 'login' ? '登录' : '注册' }}</text>
+				</button>
+			</view>
+			<view class="other-page flex-row justify-around mt-3">
+				<text v-if="type=='login'" class="font-30 text-sec-color" @click="type='reg'">立即注册</text>
+				<text v-else class="font-30 text-sec-color" @click="type='login'">立即登录</text>
+				<text class="font-30 text-sec-color" >忘记密码</text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import $http from "@/common/js/http.js"
 export default {
 	data() {
 		return {
-			from: {
+			type: 'login',
+			form: {
 				username: '',
-				password: ''
+				password: '',
+				rePassword: ''
 			}
 		};
-	},
-	methods: {
-		login() {
-		// 验证
-		$http.post('/login',this.form,{token:false}).then(res=>{
-			console.log(res,"res")
-			
-		})
-		}
 	}
 };
 </script>
-
 <style scoped>
-.login {
-	display: flex;
-	flex: 1;
-}
-.form {
-	width: 690rpx;
-	margin-top: 350rpx;
+.container {
+	width: 630rpx;
 }
 
-.other-page {
-	width: 690rpx;
-	margin-top: 50rpx;
+.logo {
+	height: 200rpx;
+	width: 200rpx;
+	margin-top: 140rpx;
 }
-
+.title {
+	font-size: 50rpx;
+}
 .input {
-	background-color: #f1f1f1;
-	margin-bottom: 40rpx;
+	height: 90rpx;
+	padding-bottom: 10rpx;
+}
+.button {
+	border-color: #f8f8f8;
 	height: 80rpx;
 }
 
-.button {
-	height: 90rpx;
-	background-color: #189f33;
-	margin-top: 40rpx;
+.button-text {
+	flex: 1;
+	height: 80rpx;
+	line-height: 80rpx;
+	text-align: center;
 }
 </style>
