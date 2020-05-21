@@ -93,20 +93,12 @@
 }
 
 
-/* image*/
-image {
-	display: block;
-	height: 100%;
-	width: 100%;
-}
-
-uni-button:after{
-}
+uni-button:after {}
 
 /* temp */
 
 .temp-bg {
-	background-color: rgba(0,0,0,.3);
+	background-color: rgba(0, 0, 0, .3);
 }
 
 .temp-border {

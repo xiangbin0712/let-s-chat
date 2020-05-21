@@ -9,7 +9,7 @@
 /* flex */
 
 .flex {
-	display: flex
+	/* display: flex */
 }
 
 .flex-1 {
@@ -17,7 +17,7 @@
 }
 
 .flex-center {
-	display: flex;
+	/* display: flex; */
 	justify-content: center;
 	align-items: center;
 }
@@ -109,6 +109,7 @@
 .mr-5 {
 	margin-right: 50rpx;
 }
+
 /* margin-top */
 .mt-1 {
 	margin-top: 10rpx;
@@ -129,6 +130,7 @@
 .mt-5 {
 	margin-top: 50rpx;
 }
+
 /* margin-bottom */
 .mb-1 {
 	margin-top: 10rpx;
@@ -165,10 +167,12 @@
 	margin-left: 30rpx;
 	margin-right: 30rpx;
 }
+
 .mx-4 {
 	margin-left: 40rpx;
 	margin-right: 40rpx;
 }
+
 .mx-5 {
 	margin-left: 50rpx;
 	margin-right: 50rpx;
@@ -189,10 +193,12 @@
 	margin-top: 30rpx;
 	margin-bottom: 30rpx;
 }
+
 .my-4 {
 	margin-top: 40rpx;
 	margin-bottom: 40rpx;
 }
+
 .my-5 {
 	margin-top: 50rpx;
 	margin-bottom: 50rpx;
@@ -202,6 +208,7 @@
 .pl-1 {
 	padding-left: 10rpx;
 }
+
 .pl-2 {
 	padding-left: 20rpx;
 }
@@ -209,16 +216,20 @@
 .pl-3 {
 	padding-left: 30rpx;
 }
+
 .pl-4 {
 	padding-left: 40rpx;
 }
+
 .pl-5 {
 	padding-left: 50rpx;
 }
+
 /* padding-right */
 .pr-1 {
 	padding-right: 10rpx;
 }
+
 .pr-2 {
 	padding-right: 20rpx;
 }
@@ -226,26 +237,66 @@
 .pr-3 {
 	padding-right: 30rpx;
 }
+
 .pr-4 {
 	padding-right: 40rpx;
 }
+
 .pr-5 {
 	padding-right: 50rpx;
 }
 
+/* padding-y */
+.py-1 {
+	padding-top: 10rpx;
+	padding-bottom: 10rpx;
+}
 
+.py-2 {
+	padding-top: 20rpx;
+	padding-bottom: 20rpx;
+}
+
+.py-3 {
+	padding-top: 30rpx;
+	padding-bottom: 30rpx;
+}
+
+.py-4 {
+	padding-top: 40rpx;
+	padding-bottom: 40rpx;
+}
+
+.py-5 {
+	padding-top: 50rpx;
+	padding-bottom: 50rpx;
+}
 
 /* 文字大小 */
-.font-20 {font-size: 20rpx}
-.font-25 {font-size: 25rpx}
-.font-30 {font-size: 30rpx}
-.font-35 {font-size: 35rpx}
-.font-40 {font-size: 40rpx}
+.font-20 {
+	font-size: 20rpx
+}
+
+.font-25 {
+	font-size: 25rpx
+}
+
+.font-30 {
+	font-size: 30rpx
+}
+
+.font-35 {
+	font-size: 35rpx
+}
+
+.font-40 {
+	font-size: 40rpx
+}
 
 .text-bold {
 	font-weight: bold;
 }
- 
+
 .text-white {
 	color: #FFFFFF;
 }
@@ -350,10 +401,4 @@
 	border-bottom-width: 1rpx;
 	border-bottom-style: solid;
 	border-bottom-color: #dee2e6;
-}
-
-image {
-	width: 100%;
-	height: 100%;
-	display: block;
 }

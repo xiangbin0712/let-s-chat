@@ -9,31 +9,92 @@
 			<view class="form">
 				<input type="text" class="bg-white input font-30 pl-3   border-bottom" placeholder="用户名" v-model="form.username" />
 				<input type="password" class="bg-white input  font-30  mt-3 pl-3 border-bottom" placeholder="密码" v-model="form.password" />
-				<input type="password" class="bg-white input font-30 pl-3 border-bottom" v-if="type == 'reg'" placeholder="请确认密码" v-model="form.rePassword" />
-				<button class="button circle yellow mt-5">
+				<input type="password" class="bg-white input font-30 mt-3 pl-3 border-bottom" v-if="type == 'reg'" placeholder="请确认密码" v-model="form.rePassword" />
+				<button class="button circle yellow mt-5" @click="clickBtn">
 					<text class="text-main-color font-35 button-text">{{ type == 'login' ? '登录' : '注册' }}</text>
 				</button>
 			</view>
 			<view class="other-page flex-row justify-around mt-3">
-				<text v-if="type=='login'" class="font-30 text-sec-color" @click="type='reg'">立即注册</text>
-				<text v-else class="font-30 text-sec-color" @click="type='login'">立即登录</text>
-				<text class="font-30 text-sec-color" >忘记密码</text>
+				<text v-if="type == 'login'" class="font-30 text-sec-color" @click="type = 'reg'">立即注册</text>
+				<text v-else class="font-30 text-sec-color" @click="type = 'login'">立即登录</text>
+				<text class="font-30 text-sec-color">忘记密码</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+import { User } from '@/model/User.js';
+import { _toast } from '@/utils/util.js';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
 			type: 'login',
+			locked: false,
 			form: {
 				username: '',
 				password: '',
 				rePassword: ''
 			}
 		};
+	},
+
+	watch: {
+		type(val) {
+			this.form.username = '';
+			this.form.password = '';
+			this.form.rePassword = '';
+		}
+	},
+
+	methods: {
+		...mapMutations(['LOGIN']),
+
+		clickBtn() {
+			this.type == 'login' ? this.login() : this.register();
+		},
+
+		async login() {
+			
+			// if (this.validata()) {
+				const res = await User.login(this.form);
+				_toast('登录成功');
+				this.LOGIN(res.data)
+				// 将信息储存起来
+				setTimeout(() => {
+					uni.switchTab({
+						url:"../tabbar/index/index"
+					});
+				}, 1000);
+			// }
+		},
+		async register() {
+			if (this.validata()) {
+				const res = await User.register(this.form);
+				_toast('注册成功,请登录');
+				setTimeout(() => {
+					this.type = 'login';
+				}, 1000);
+			}
+		},
+
+		// 数据校验
+		validata() {
+			if (!this.form.username || !this.form.password) {
+				_toast('请输入数据');
+				return false;
+			}
+			if (this.type == 'reg' && !this.form.rePassword) {
+				_toast('请输入数据');
+				return false;
+			}
+			if (this.type == 'reg' && this.form.rePassword != this.form.password) {
+				_toast('两次密码输入不一致');
+				return false;
+			}
+			return true;
+		}
 	}
 };
 </script>
