@@ -12,7 +12,7 @@
 				<text class="font-35" v-if="number">({{ number }})</text>
 			</view>
 			<!-- right -->
-			<view class="flex flex-row">
+			<view class="flex flex-row" v-if="hasRight">
 				<icon-button icon="\ue6e3"></icon-button>
 				<icon-button @click="add" icon="\ue682"></icon-button>
 			</view>
@@ -20,7 +20,9 @@
 		<!-- 扩展菜单 -->
 		<popup mask width="320" height="400" maskValue="1" bg="#4C4C4C" ref="popup">
 			<view style="width: 320rpx;height: 400rpx;" class="flex ">
-				<view class=" flex-1 flex-center" v-for="item in menus" :key="item.text"><text class="font-md text-white">{{item.text}}</text></view>
+				<view class=" flex-1 flex-center" v-for="item in menus" :key="item.text">
+					<text class="font-md text-white">{{ item.text }}</text>
+				</view>
 			</view>
 		</popup>
 	</view>
@@ -36,7 +38,11 @@ export default {
 	},
 	props: {
 		title: String,
-		number: Number
+		number: Number,
+		hasRight: {
+			type: Boolean,
+			default: true
+		}
 	},
 	data() {
 		return {

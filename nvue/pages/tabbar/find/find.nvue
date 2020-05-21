@@ -1,22 +1,44 @@
 <template>
-	<view>
-		find
+	<view class="find  flex-1" style="background-color: #F5F5F5">
+		<!--导航栏 -->
+		<navigator-bar title="发现"></navigator-bar>
+		<view class="list align-center flex-row mb-3 bg-white" v-for="(item, i) in lists" :key="i">
+			<image class="icon mx-4" src="../../../static/logo.png" mode=""></image>
+			<text class="text-main-color font-35">{{ item.text }}</text>
+		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+export default {
+	components: {
+		navigatorBar
+	},
+	data() {
+		return {
+			lists: [
+				{
+					icon: '',
+					text: '朋友圈'
+				},
+				{
+					icon: '',
+					text: '朋友圈'
+				}
+			]
+		};
+	},
+	methods: {}
+};
 </script>
 
-<style>
-
+<style scoped>
+.list {
+	height: 110rpx;
+}
+.icon {
+	height: 60rpx;
+	width: 60rpx;
+}
 </style>
