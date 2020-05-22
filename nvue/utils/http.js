@@ -22,7 +22,8 @@ class Http {
 				data,
 				method,
 				header: {
-					"Authorization": token
+					"Authorization": token,
+					'Content-Type':'application/json;charset=UTF-8',
 				},
 				success: res => {
 					const statusCode = res.statusCode.toString()

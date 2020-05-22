@@ -25,6 +25,32 @@ class Friend {
 		})
 	}
 
+	// 获取申请列表
+	static getApplyList(userId) {
+		return Http.request({
+			url: `/apply/list?friend_id=${userId}`,
+			method: "GET",
+		})
+	}
+
+	// 同意好友申请
+	static applyAgree(id) {
+		return Http.request({
+			url: `/apply/agree`,
+			data: {
+				_id: id
+			}
+		})
+	}
+
+	// 获取好友列表
+	static getFriendList(_id) {
+		return Http.request({
+			url: `/friend/list?user_id=${_id}`,
+			method: "GET"
+		})
+	}
+
 }
 
 export {

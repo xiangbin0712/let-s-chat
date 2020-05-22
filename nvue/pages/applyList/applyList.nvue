@@ -1,0 +1,72 @@
+<template>
+	<view class="flex-1" style="background-color: #f7f7f7;">
+		<scroll-view scroll-y="true" class="flex-1">
+			<view class="item flex-row bg-white align-center" v-for="item in applyList" :key="item._id">
+				<image class="avatar mx-3" src="../../static/logo.png" mode=""></image>
+				<view class="right py-2 border-bottom align-center flex-1 flex-row justify-between">
+					<view class="text">
+						<text class="title text-main-color font-40">{{ item.nickname || item.user_id.username }}</text>
+						<text class="apply-value text-sec-color font-30">{{ item.apply_value }}</text>
+					</view>
+					<!-- {{item}} -->
+					<view class="mr-3">
+						<button class="btn" @click="agree(item._id)" v-if="item.status == 'pending'"><text class="status text-main-color font-30 agree">同意</text></button>
+						<text v-if="item.status == 'agree'" class="status mr-3 text-three-color font-35">已添加</text>
+						<text v-if="item.status == 'refuse'" class="status mr-3 text-three-color font-35">已拒绝</text>
+					</view>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+</template>
+
+<script>
+import { Friend } from '@/model/Friend.js';
+import { mapState, mapMutations } from 'vuex';
+export default {
+	data() {
+		return {
+			applyList: []
+		};
+	},
+	onNavigationBarButtonTap(e) {
+		if (e.index) {
+			uni.navigateTo({
+				url: '../compage/addFriend/addFriend'
+			});
+		}
+	},
+
+	computed: {
+		...mapState(['userInfo'])
+	},
+	mounted() {
+		this.getApplyList();
+	},
+	methods: {
+		async getApplyList() {
+			const res = await Friend.getApplyList(this.userInfo._id);
+			this.applyList = res.data;
+		},
+
+		// 同意好友申请
+		async agree(id) {
+			const res = await Friend.applyAgree(id);
+			this.getApplyList()
+		}
+	}
+};
+</script>
+
+<style scoped>
+.avatar {
+	height: 80rpx;
+	width: 80rpx;
+}
+
+.btn {
+	height: 60rpx;
+	width: 100rpx;
+	border-radius: 0;
+}
+</style>

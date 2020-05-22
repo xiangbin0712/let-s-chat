@@ -5,7 +5,7 @@
 		<!-- 联系人列表 -->
 		<!-- 顶部固定列表 -->
 		<view class="top-list">
-			<view class="list-item  flex-row align-center" v-for="(item, i) in topMenu" :key="i">
+			<view @click="clickTopItem" class="list-item flex-row align-center" v-for="(item, i) in topMenu" :key="i">
 				<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
 				<view class="list-right justify-center   border-bottom flex-1">
 					<text class="font-35 text-main-color">{{ item.name }}</text>
@@ -14,7 +14,7 @@
 		</view>
 
 		<!-- 通讯录 -->
-		<view class="contacts">
+		<!-- <view class="contacts">
 			<view class="flex-row " v-for="(items, i) in contacts" :key="i">
 				<view class="list-item w-100">
 					<text class="line bg-color-2 text-three-color pl-3  font-30">{{ items.letter }}</text>
@@ -26,12 +26,28 @@
 					</view>
 				</view>
 			</view>
+		</view> -->
+
+		<view class="contacts">
+			<view class="flex-row " v-for="(items, i) in contacts" :key="i">
+				<view class="list-item w-100">
+					<text class="line bg-color-2 text-three-color pl-3  font-30"></text>
+					<view class="flex-row align-center ">
+						<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
+						<view class="list-right justify-center   border-bottom flex-1">
+							<text class="font-35 text-main-color">{{ items.nickname || items.friend_id.username }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 import navigatorBar from '@/components/ui/navigation-bar.vue';
+import { Friend } from '@/model/Friend.js';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
 		navigatorBar
@@ -43,19 +59,34 @@ export default {
 				{
 					letter: 'A',
 					lists: ['哈哈哈', '哈哈哈', '哈哈哈', '哈哈哈']
-				},
-				{
-					letter: 'B',
-					lists: ['哈哈哈', '哈哈哈', '哈哈哈', '哈哈哈']
-				},
-				{
-					letter: 'c',
-					lists: ['哈哈哈', '哈哈哈', '哈哈哈', '哈哈哈']
 				}
 			]
 		};
 	},
-	methods: {}
+	computed: {
+		...mapState(['userInfo'])
+	},
+
+	mounted() {
+		this.getFriendList();
+	},
+	onShow(){
+		this.getFriendList();
+	},
+	methods: {
+		async getFriendList() {
+			console.log('getFriendList',this.userInfo._id);
+			const res = await Friend.getFriendList(this.userInfo._id);
+			console.log(res,123213)
+			this.contacts = res.data;
+		},
+
+		clickTopItem() {
+			uni.navigateTo({
+				url:"../../applyList/applyList"
+			})
+		}
+	}
 };
 </script>
 
