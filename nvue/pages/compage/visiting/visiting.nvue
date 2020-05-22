@@ -1,0 +1,88 @@
+<!-- 用户详情 名片页 -->
+<template>
+	<view class="visiting flex-1" style="background-color: #f5f5f5">
+		<view class="userinfo bg-white py-5 flex-row border">
+			<image class="avatar ml-3 mr-4" src="../../../static/logo.png" mode=""></image>
+			<view class="text">
+				<text class="nickname text-main-color text-bold font-40" v-if="info.nickname">{{ info.nickname }}</text>
+				<text class="username font-35 text-sec-color" v-if="info.username">账号:{{ info.username }}</text>
+				<text class="area font-35 text-sec-color" v-if="info.area">地区:{{ info.area }}</text>
+			</view>
+		</view>
+		<!-- 已经是好友 -->
+		<view class="list bg-white align-center justify-center border-bottom" v-if="sendShow" @click="send"><text class="list-text  font-35">发消息</text></view>
+		<!--加好友  -->
+		<view v-if="addShow" class="list bg-white align-center justify-center border-bottom" @click="applyFriend"><text class="list-text font-35">添加到通讯录</text></view>
+	</view>
+</template>
+
+<script>
+import { Friend } from '@/model/Friend.js';
+import { Search } from '@/model/Search.js';
+import { mapState, mapMutations } from 'vuex';
+export default {
+	data() {
+		return {
+			friendId: '',
+			info: null,
+			isFriend: 1 // 0好友 1/不是
+		};
+	},
+	computed: {
+		...mapState(['userInfo']),
+		//  添加通讯录是否显示  不是好友并且不是自己
+		addShow() {
+			const isMe = this.userInfo._id == this.friendId;
+			if (this.isFriend && !isMe) return true;
+			return false;
+		},
+		// 发送消息是否显示  是好友 或者是自己
+		sendShow() {
+			const isMe = this.userInfo._id == this.friendId;
+			if (!this.isFriend || isMe) return true;
+			return false;
+		}
+	},
+	onLoad(options) {
+		options.id ? (this.friendId = options.id) : '';
+		this.getUser(); //获取用户信息
+		this.checkFriend(); //是否好友
+	},
+	methods: {
+		async getUser() {
+			const res = await Search.searchUser('', this.friendId);
+			this.info = res.data;
+		},
+
+		// 是否好友
+		async checkFriend() {
+			// 0 是好友  1 不是
+			const res = await Friend.checkIsFriend(this.userInfo._id, this.friendId);
+			res.data.msg == 'isFriend' ? (this.isFriend = 1) : (this.isFriend = 0);
+		},
+		send() {},
+
+		// 好友申请
+		applyFriend() {
+			uni.navigateTo({
+				url:`../applyFriend/applyFriend?friendId=${this.friendId}`
+			})
+		}
+	}
+};
+</script>
+
+<style scoped>
+.avatar {
+	height: 130rpx;
+	width: 130rpx;
+}
+
+.list {
+	height: 100rpx;
+}
+
+.list-text {
+	color: #505e97;
+}
+</style>

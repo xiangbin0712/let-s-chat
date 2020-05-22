@@ -8,8 +8,8 @@ class User {
 		return Http.request({
 			url: `/login`,
 			data: {
-				username:form.username,
-				password:form.password,
+				username: form.username,
+				password: form.password,
 			}
 		})
 	}
@@ -19,9 +19,9 @@ class User {
 		return Http.request({
 			url: `/register`,
 			data: {
-				username:form.username,
-				password:form.password,
-				rePassword:form.rePassword
+				username: form.username,
+				password: form.password,
+				rePassword: form.rePassword
 			}
 		})
 	}

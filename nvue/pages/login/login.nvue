@@ -47,26 +47,35 @@ export default {
 			this.form.rePassword = '';
 		}
 	},
+	computed: {
+		...mapState(['login'])
+	},
+	mounted() {
+		if (this.login) {
+			uni.switchTab({
+				url: '../tabbar/index/index'
+			});
+		}
+	},
 
 	methods: {
 		...mapMutations(['LOGIN']),
 
 		clickBtn() {
-			this.type == 'login' ? this.login() : this.register();
+			this.type == 'login' ? this._login() : this.register();
 		},
 
-		async login() {
-			
+		async _login() {
 			// if (this.validata()) {
-				const res = await User.login(this.form);
-				_toast('登录成功');
-				this.LOGIN(res.data)
-				// 将信息储存起来
-				setTimeout(() => {
-					uni.switchTab({
-						url:"../tabbar/index/index"
-					});
-				}, 1000);
+			const res = await User.login(this.form);
+			_toast('登录成功');
+			this.LOGIN(res.data);
+			// 将信息储存起来
+			setTimeout(() => {
+				uni.switchTab({
+					url: '../tabbar/index/index'
+				});
+			}, 1000);
 			// }
 		},
 		async register() {

@@ -8,22 +8,26 @@ const store = new Vuex.Store({
 		userInfo: {}
 	},
 	mutations: {
-		init() {
+		INIT(state) {
 			uni.getStorage({
 				key: 'userInfo',
 				success: (res) => {
-					console.log(res, "vex,token")
+					state.login = true
+					state.token = res.userInfo.token
+					state.userInfo = res.userInfo
 				},
 			});
 		},
 		LOGIN(state, provider) {
-			state.login = true
-			state.token = provider.token
-			state.userInfo = provider
-			uni.setStorage({
-				key: "userInfo",
-				data: provider
-			})
+			if (provider) {
+				state.login = true
+				state.token = provider.token || ''
+				state.userInfo = provider || {}
+				uni.setStorage({
+					key: "userInfo",
+					data: provider
+				})
+			}
 		},
 		LOGOUT(state) {
 			state.login = false

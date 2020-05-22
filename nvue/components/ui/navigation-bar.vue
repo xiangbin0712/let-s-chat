@@ -20,7 +20,7 @@
 		<!-- 扩展菜单 -->
 		<popup mask width="320" height="400" maskValue="1" bg="#4C4C4C" ref="popup">
 			<view style="width: 320rpx;height: 400rpx;" class="flex ">
-				<view class=" flex-1 flex-center" v-for="item in menus" :key="item.text">
+				<view class=" flex-1 flex-center" v-for="item in menus" @click="clickMenu(item)" :key="item.text">
 					<text class="font-md text-white">{{ item.text }}</text>
 				</view>
 			</view>
@@ -80,6 +80,14 @@ export default {
 			let x = uni.upx2px(415);
 			let y = uni.upx2px(150);
 			this.$refs.popup.open(x, y);
+		},
+
+		clickMenu(item) {
+			console.log(11234);
+
+			uni.navigateTo({
+				url:"/pages/compage/addFriend/addFriend"
+			})
 		}
 	}
 };

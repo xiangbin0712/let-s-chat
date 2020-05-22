@@ -1,0 +1,82 @@
+<!-- 申请好友 -->
+<template>
+	<view class="apply-friend mx-5">
+		<view class="title align-center mt-4"><text class="text-main-color font-40 text-bold">申请添加好友</text></view>
+		<!-- 申请 -->
+		<view class="chunk my-5">
+			<text class="tag text-sec-color font-30">发送添加朋友申请</text>
+			<view class="box bg-color-2 round-md mt-1" style="height: 150rpx;"><textarea v-model="applyValue" value="" class="textarea mx-2 my-2" /></view>
+		</view>
+
+		<!-- 备注 -->
+		<view class="chunk">
+			<text class="tag text-sec-color font-30">设置备注</text>
+			<view class="box bg-color-2 round-md mt-1 py-2"><input type="text" v-model="nickname" value="123" /></view>
+		</view>
+
+		<!-- 权限 -->
+		<view class="chunk my-5">
+			<text class="tag text-sec-color font-30">设置朋友权限</text>
+			<view class="box bg-color-2 round-md mt-1">请设置朋友权限</view>
+		</view>
+
+		<!-- 动态权限 -->
+		<view class="chunk">
+			<text class="tag text-sec-color font-30">朋友圈和视频动态</text>
+			<view class="box bg-color-2 round-md mt-1">朋友圈和视频动态</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import { Friend } from '@/model/Friend.js';
+import { mapState, mapMutations } from 'vuex';
+import { _toast } from '@/utils/util.js';
+export default {
+	data() {
+		return {
+			applyValue: '想认识你',
+			nickname: '',
+			userId: '',
+			friendId: ''
+		};
+	},
+	onNavigationBarButtonTap(e) {
+		// 好友申请
+		this.applyFriend();
+	},
+	computed: {
+		...mapState(['userInfo'])
+	},
+	onLoad(options) {
+		console.log(options, 123);
+		if (options.friendId) {
+			this.friendId = options.friendId;
+		}
+	},
+	methods: {
+		// 好友申请
+		async applyFriend() {
+			uni.showLoading({
+				title: '发送中...'
+			});
+			let params = {
+				applyValue: this.applyValue,
+				nickname: this.nickname,
+				userId: this.userInfo._id,
+				friendId: this.friendId
+			};
+			const res = await Friend.applyFriend(params);
+			setTimeout(() => {
+				uni.hideLoading();
+				uni.navigateBack({
+					delta: 1
+				});
+				_toast('发送成功', 'center');
+			}, 1500);
+		}
+	}
+};
+</script>
+
+<style></style>

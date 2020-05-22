@@ -30,7 +30,7 @@ export default {
 	data() {
 		return {
 			hasRight: false,
-			search: true,
+			search: false,
 			lists: [
 				{
 					icon: '',

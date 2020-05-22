@@ -46,12 +46,15 @@ export default {
 			if (!this.keyword.trim()) return;
 			// 搜索用户
 			const res = await Search.searchUser(this.keyword);
-			// 有用户 跳转用户详情
 			uni.hideKeyboard();
-			if (!res.data) {
-				// 没有
-				return _toast('您的朋友可能正在火星旅行!!', 'center');
-			}
+			// 如果没有所搜到用户
+			if (!res.data) return _toast('您的朋友可能正在火星旅行!!', 'center');
+			
+			// 搜索到用户 跳转用户详情
+			uni.navigateTo({
+				url:`/pages/compage/visiting/visiting?id=${res.data._id}`
+			})
+				
 		}
 	}
 };

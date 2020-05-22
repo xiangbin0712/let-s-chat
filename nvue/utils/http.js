@@ -7,8 +7,6 @@ const errors = {
 	"400001": "数据不合法",
 }
 
-
-
 class Http {
 	static request({
 		url,
@@ -28,7 +26,7 @@ class Http {
 				},
 				success: res => {
 					const statusCode = res.statusCode.toString()
-					console.log(res, "success")
+					// console.log(res, "http")
 					if (statusCode.startsWith('2')) {
 						if (res.data.status == 0) {
 							return resolve(res.data)

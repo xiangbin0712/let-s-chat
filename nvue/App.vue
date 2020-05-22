@@ -1,4 +1,5 @@
 <script>
+import store from '@/store'
 export default {
 	onLaunch: function() {
 		// console.log('App Launch')
@@ -10,12 +11,20 @@ export default {
 			src: "url('https://at.alicdn.com/t/font_1365296_2ijcbdrmsg.ttf')"
 		});
 		// #endif
+		let userInfo = uni.getStorageSync('userInfo');
+		if (userInfo) {
+			// this.LOGIN(userInfo);
+			store.commit('LOGIN',userInfo)
+		}
 	},
+
 	onShow: function() {
 		console.log('App Show');
 	},
 	onHide: function() {
 		console.log('App Hide');
+	},
+	methods: {
 	}
 };
 </script>

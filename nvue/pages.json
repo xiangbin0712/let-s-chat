@@ -1,6 +1,23 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/login/login",
+			"style": {}
+		},
+		{
+			"path": "pages/compage/visiting/visiting",
+			"style": {
+				"app-plus": {
+					"navigationBarBackgroundColor": "#ffffff",
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/compage/addFriend/addFriend",
 			"style": {}
 		},
@@ -8,16 +25,10 @@
 			"path": "pages/tabbar/contacts/contacts",
 			"style": {}
 		},
-		
 		{
 			"path": "pages/tabbar/index/index",
 			"style": {}
 		},
-		{
-			"path": "pages/login/login",
-			"style": {}
-		},
-
 
 		{
 			"path": "pages/tabbar/my/my",
@@ -27,14 +38,28 @@
 		{
 			"path": "pages/tabbar/find/find",
 			"style": {}
+		},
+		{
+			"path": "pages/compage/applyFriend/applyFriend",
+			"style": {
+				"app-plus": {
+					"navigationBarBackgroundColor": "#ffffff",
+					"titleNView": {
+						"buttons": [{
+							"text": "发送",
+							"fontSize": "18px",
+							"width": "100px"
+						}]
+					}
+				}
+			}
 		}
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "Let's Chat",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		// "navigationBarTitleText": "Let's Chat",
+		"navigationBarBackgroundColor": "#f7f7f7",
+		"backgroundColor": "red",
 		"app-plus": {
 			"titleNView": false,
 			"scrollIndicator": "none"

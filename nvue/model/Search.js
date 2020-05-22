@@ -4,11 +4,12 @@ import {
 
 class Search {
 	// 搜索用户
-	static searchUser(keyword) {
+	static searchUser(keyword, id = "") {
 		return Http.request({
 			url: `/search/user`,
 			data: {
-				keyword
+				keyword,
+				id
 			}
 		})
 	}
