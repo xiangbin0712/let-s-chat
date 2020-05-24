@@ -38,7 +38,9 @@ export default {
 	},
 	props: {
 		title: String,
-		number: Number,
+		number:{
+			type:[String,Number]
+		},
 		hasRight: {
 			type: Boolean,
 			default: true

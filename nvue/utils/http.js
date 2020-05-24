@@ -15,15 +15,15 @@ class Http {
 	}) {
 		return new Promise((resolve, reject) => {
 			// 这里从store中拿到token
-			let token = store.state.token||''
-			console.log(token,"token")
+			let token = store.state.token || ''
+			console.log(token, "token")
 			uni.request({
 				url: `${config.apiBaseUrl}${url}`,
 				data,
 				method,
 				header: {
 					"Authorization": token,
-					'Content-Type':'application/json;charset=UTF-8',
+					// 'Content-Type': 'application/json;charset=UTF-8',
 				},
 				success: res => {
 					const statusCode = res.statusCode.toString()
@@ -37,7 +37,7 @@ class Http {
 						// 	icon: "none"
 						// })
 
-					}else {
+					} else {
 						// 错误
 						uni.showToast({
 							title: res.data.message,

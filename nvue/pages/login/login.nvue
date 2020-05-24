@@ -26,7 +26,7 @@
 <script>
 import { User } from '@/model/User.js';
 import { _toast } from '@/utils/util.js';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	data() {
 		return {
@@ -57,26 +57,34 @@ export default {
 			});
 		}
 	},
+	created() {
+		let token = uni.getStorageSync('token');
+		if (token) {
+			uni.switchTab({
+				url: '/pages/tabbar/index/index'
+			});
+		}
+	},
 
 	methods: {
-		...mapMutations(['LOGIN']),
+		...mapActions(['LOGIN']),
 
 		clickBtn() {
 			this.type == 'login' ? this._login() : this.register();
 		},
 
 		async _login() {
-			// if (this.validata()) {
-			const res = await User.login(this.form);
-			_toast('登录成功');
-			this.LOGIN(res.data);
-			// 将信息储存起来
-			setTimeout(() => {
-				uni.switchTab({
-					url: '../tabbar/index/index'
-				});
-			}, 1000);
-			// }
+			if (this.validata()) {
+				const res = await User.login(this.form);
+				// 将信息储存起来
+				this.LOGIN(res.data);
+				setTimeout(() => {
+					_toast('登录成功');
+					uni.switchTab({
+						url: '/pages/tabbar/index/index'
+					});
+				}, 1000);
+			}
 		},
 		async register() {
 			if (this.validata()) {

@@ -11,7 +11,10 @@
 </template>
 
 <script>
+// #ifdef APP-PLUS-NVUE
 const animation = weex.requireModule('animation');
+// #endif
+
 export default {
 	props: {
 		// 是否显示

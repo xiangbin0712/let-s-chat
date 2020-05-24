@@ -1,31 +1,35 @@
 <template>
-	<view>
-		<view class="add-friend">
-			123 23123
+	<view class="flex-1  flex-center">
+		<view class="bg-color-1">
 			<button @click="logout">logout</button>
-			{{ userInfo._id }}
+			<view class="">user:{{ user._id }}</view>
+			<view class="">token:{{ token }}</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
 	data() {
 		return {};
 	},
 	computed: {
-		...mapState(['userInfo'])
+		...mapState({
+			user: state => state.user.user,
+			token: state => state.user.token
+		})
 	},
 	methods: {
+		...mapActions(['LOGOUT']),
 		logout() {
-			uni.removeStorageSync('userInfo');
+			this.LOGOUT();
 			uni.reLaunch({
-				url: '../../login/login'
+				url: '/pages/login/login'
 			});
 		}
 	}
 };
 </script>
 
-<style></style>
+<style scoped></style>

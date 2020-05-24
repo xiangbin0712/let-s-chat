@@ -1,5 +1,5 @@
 <script>
-import store from '@/store'
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	onLaunch: function() {
 		// console.log('App Launch')
@@ -11,11 +11,18 @@ export default {
 			src: "url('https://at.alicdn.com/t/font_1365296_2ijcbdrmsg.ttf')"
 		});
 		// #endif
-		let userInfo = uni.getStorageSync('userInfo');
-		if (userInfo) {
-			// this.LOGIN(userInfo);
-			store.commit('LOGIN',userInfo)
-		}
+
+		// 这里可以调用刷新token有效期
+		
+		this.$store.dispatch('INITLOGIN')
+
+
+	},
+	computed: {
+		...mapState([''])
+	},
+	methods: {
+	
 	},
 
 	onShow: function() {
@@ -23,8 +30,6 @@ export default {
 	},
 	onHide: function() {
 		console.log('App Hide');
-	},
-	methods: {
 	}
 };
 </script>

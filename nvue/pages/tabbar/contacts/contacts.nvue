@@ -29,13 +29,13 @@
 		</view> -->
 
 		<view class="contacts">
-			<view class="flex-row " v-for="(items, i) in contacts" :key="i">
+			<view class="flex-row " v-if="contacts.length" v-for="(items, i) in contacts" :key="i">
 				<view class="list-item w-100">
 					<text class="line bg-color-2 text-three-color pl-3  font-30"></text>
 					<view class="flex-row align-center ">
 						<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
 						<view class="list-right justify-center   border-bottom flex-1">
-							<text class="font-35 text-main-color">{{ items.nickname || items.friend_id.username }}</text>
+							<text class="font-35 text-main-color" >{{ items.friend_id.nickname || items.friend_id.username }}</text>
 						</view>
 					</view>
 				</view>
@@ -48,6 +48,9 @@
 import navigatorBar from '@/components/ui/navigation-bar.vue';
 import { Friend } from '@/model/Friend.js';
 import { mapState, mapMutations } from 'vuex';
+// import io from '@/static/temp.js';
+import socketIo from '../../../static/temp.js';
+import weappIo from '../../../static/weapp.socket.io.js';
 export default {
 	components: {
 		navigatorBar
@@ -64,27 +67,29 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['userInfo'])
+		...mapState({
+			user: state => state.user.user,
+			token: state => state.user.token
+		})
 	},
 
-	mounted() {
+	mounted() {},
+	onShow() {
 		this.getFriendList();
 	},
-	onShow(){
-		this.getFriendList();
+	onLoad() {
 	},
 	methods: {
 		async getFriendList() {
-			console.log('getFriendList',this.userInfo._id);
-			const res = await Friend.getFriendList(this.userInfo._id);
-			console.log(res,123213)
+			const res = await Friend.getFriendList(this.user._id);
 			this.contacts = res.data;
+			
 		},
 
 		clickTopItem() {
 			uni.navigateTo({
-				url:"../../applyList/applyList"
-			})
+				url: '../../applyList/applyList'
+			});
 		}
 	}
 };
