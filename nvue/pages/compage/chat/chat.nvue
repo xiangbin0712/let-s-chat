@@ -1,0 +1,101 @@
+<!-- 聊天页面 -->
+<template>
+	<view class="flex-1" style="background-color: #f7f7f7;">
+		<navigator-bar :hasRight="hasRight" :title="title"></navigator-bar>
+		<scroll-view class="flex-1" scroll-y="true">
+			<!-- other -->
+			<view class="chat-item  mt-3 mx-3 flex-row" v-for="item in 20" :key="item">
+				<image class="avatar mr-3" src="../../../static/logo.png" mode=""></image>
+				<view class="right flex-1">
+					<text class="username font-30 text-sec-color">uwername</text>
+					<text class="chat-info pl-2 pr-2 round-sm py-2 bg-white text-main-color font-40">srsdrsdf</text>
+				</view>
+			</view>
+
+			<!-- me -->
+			<view class="chat-item   mt-3 mx-3 flex-row">
+				<view class="right flex-1">
+					<text class="username tar font-30 text-sec-color">uwername</text>
+					<text class="tar chat-info pl-2 pr-2 round-sm py-2 bg-white text-main-color font-40">srsdrsdf</text>
+				</view>
+				<image class="avatar ml-3" src="../../../static/logo.png" mode=""></image>
+			</view>
+		</scroll-view>
+		<!-- buttom -->
+		<view class="bottom bg-dark flex-row align-center">
+			<text>icon</text>
+			<input class="input " type="text" value="" />
+			<button class="btn-send" @click="send">send</button>
+		</view>
+	</view>
+</template>
+
+<script>
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+import { mapState, mapMutations } from 'vuex';
+export default {
+	components: {
+		navigatorBar
+	},
+	data() {
+		return {
+			hasRight: false,
+			title: '聊天界面',
+			otherInfo: null
+		};
+	},
+	computed: {
+		...mapState({
+			chat: state => state.user.chat,
+			user: state => state.user.user
+		})
+	},
+	onLoad(options) {
+		if (options.params) {
+			this.otherInfo = options.params;
+			this.init();
+		}
+	},
+	methods: {
+		init() {
+			// console.log(this.chat, 'chat');
+			// 创建聊天对象
+			this.chat.createChatObj(this.otherInfo);
+			// 获取历史记录
+			// 监听接受聊天信息
+		},
+
+		async send() {
+			let user_id = this.user._id;
+			let to_id = this.otherInfo._id;
+			let chat_type = 'user';
+			let type = 'text';
+			let data = '测试账号';
+			const a = await this.chat.send();
+		}
+	},
+
+	destroyed() {
+		// 销毁聊天对象
+		this.chat.destroyObj();
+	}
+};
+</script>
+
+<style scoped>
+.avatar {
+	height: 80rpx;
+	width: 80rpx;
+}
+
+.tar {
+	text-align: right;
+}
+
+.bottom {
+}
+.input {
+	width: 500rpx;
+	background-color: #ffffff;
+}
+</style>

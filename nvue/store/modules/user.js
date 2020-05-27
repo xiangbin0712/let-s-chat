@@ -1,7 +1,14 @@
+import {
+	Chat
+} from "@/model/Chat.js"
+import {
+	config
+} from "@/config/config.js"
 export default {
 	state: {
 		user: null,
-		token: ""
+		token: "",
+		chat: null
 	},
 	mutations: {
 		// 存储token
@@ -10,6 +17,9 @@ export default {
 		},
 		SET_USER: (state, user) => {
 			state.user = user || null
+		},
+		SET_CHAT: (state, chat) => {
+			state.chat = chat || null
 		}
 	},
 	actions: {
@@ -19,36 +29,18 @@ export default {
 			// 初始化登录信息
 			const token = uni.getStorageSync("token")
 			const user = uni.getStorageSync("user")
+			console.log(token,user)
 			if (token) {
 				commit('SET_TOKEN', token)
 				commit('SET_USER', user)
 
 				// 连接socket
-				let socket = uni.connectSocket({
-					url: "ws://192.168.1.100:4000/ws",
-					complete: e => {
-						console.log(e, "complete")
-					}
+				let chat = new Chat({
+					user,
+					token,
+					url: config.wsUrl
 				})
-
-				// 监听连接成功
-				socket.onOpen(() => {
-					console.log('已连接')
-				})
-				// 监听接收信息
-				socket.onMessage((msg) => {
-					console.log(msg, "msg")
-				})
-				// 监听断开
-				socket.onClose(() => {
-					console.log('已断开')
-				}),
-				// 监听错误
-				socket.onError((err) => {
-					console.log(err, "err")
-				})
-
-				// 获取离线信息
+				commit('SET_CHAT', chat)
 			}
 		},
 		LOGIN: ({
@@ -60,16 +52,27 @@ export default {
 			// 存储到本地
 			uni.setStorageSync("token", user.token)
 			uni.setStorageSync("user", user)
+
+			// 连接socket
+			let chat = new Chat({
+				user,
+				url: config.wsUrl
+			})
+			commit('SET_CHAT', chat)
 		},
 		LOGOUT: ({
-			commit
+			commit,
+			state
 		}) => {
 			commit('SET_TOKEN', "")
 			commit('SET_USER', "")
 
-			// 存储到本地
+			// 清除缓存
 			uni.removeStorageSync("token")
 			uni.removeStorageSync("user")
+			// 关闭socket连接
+			state.chat.close()
+			commit('SET_CHAT', null)
 		},
 	}
 }

@@ -76,10 +76,11 @@ export default {
 		async _login() {
 			if (this.validata()) {
 				const res = await User.login(this.form);
+				console.log(res, 'login');
+				_toast('登录成功');
 				// 将信息储存起来
 				this.LOGIN(res.data);
 				setTimeout(() => {
-					_toast('登录成功');
 					uni.switchTab({
 						url: '/pages/tabbar/index/index'
 					});

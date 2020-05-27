@@ -1,56 +1,70 @@
 <template>
-	<view>
+	<view class="bg-main flex-1">
 		<!--导航栏 -->
-		<navigator-bar title="微信" number="10"></navigator-bar>
+		<navigator-bar title="微信" number="10">
+			<icon-button icon="\ue630"></icon-button>
+			<icon-button icon="\ue629"></icon-button>
+		</navigator-bar>
 		<!-- 聊天列表 -->
-		<view class="chat-lists">
-			<block v-for="item in 20" :key="item"><chat-list @longTouch="longTouch"></chat-list></block>
-		</view>
-		<popup mask width="240" height="100" maskValue="1" ref="popup">
+		<scroller show-scrollbar="false" class="chat-lists">
+			<list-item :data="item" @longpress="longpress" @onCLick="onCLick" chat iconSize="90" rightHeight="120" :img="item.img" v-for="(item, i) in chats" :key="i"></list-item>
+			<!-- <block v-for="item in 20" :key="item"><chat-list @longTouch="longTouch"></chat-list></block> -->
+		</scroller>
+		<!-- <popup mask width="240" height="100" maskValue="1" ref="popup">
 			<view style="width: 240rpx;height: 200rpx;" class="flex">
 				<view class=" flex-1 flex-center"><text class="font-md">取消置顶</text></view>
 				<view class="flex-1 flex-center"><text class="font-md">删除聊天</text></view>
 			</view>
-		</popup>
+		</popup> -->
+		<c-popup ref="popup"><view height="200" width="200" class="bg-white popup-content round-md flex-1">112312323</view></c-popup>
 	</view>
 </template>
 
 <script>
 import navigatorBar from '@/components/ui/navigation-bar.vue';
+import listItem from '@/components/ui/list-item.vue';
 import chatList from '@/components/ui/chat-list.vue';
-import popup from '@/components/ui/popup.vue';
+import cPopup from '@/components/ui/cPopup.vue';
+import iconButton from '@/components/ui/icon-button.vue';
 import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
-		popup,
-		chatList,
-		navigatorBar
+		cPopup,
+		listItem,
+		navigatorBar,
+		iconButton
 	},
 	data() {
 		return {
-			statusBarHeight: 0
+			chats: []
 		};
 	},
 	computed: {
 		...mapState(['userInfo', 'token', 'hasLogin'])
 	},
 	mounted() {
-		
+		this.demo();
 	},
-	onLoad() {
-		// console.log(this.hasLogin,"index")
-		// if(!this.hasLogin){
-		// 	uni.reLaunch({
-		// 		url:"../../login/login"
-		// 	})
-		// }
-		// #ifdef APP-PLUS-NVUE
-		this.statusBarHeight = plus.navigator.getStatusbarHeight();
-		// #endif
-	},
+	onLoad() {},
 	methods: {
+		demo() {
+			let obj = {
+				img: '/static/images/friend.png',
+				title: '测试为re',
+				mute: 1,
+				info: '息实施佛山地方搜i 哈哈哈哈哈哈啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊hsofh',
+				time: '12:50'
+			};
+			for (let i = 0; i < 20; i++) {
+				this.chats.push(obj);
+			}
+		},
+
+		onCLick() {
+			this.$refs.popup.open();
+		},
 		// 聊天列表长按
-		longTouch(e) {
+		longpress(e) {
 			this.$refs.popup.open(e.x, e.y);
 		}
 	}
@@ -73,5 +87,9 @@ export default {
 
 .right {
 	background-color: red;
+}
+
+.popup-content {
+	box-shadow: 0px 2px 20px -8px rgba(0, 0, 0, 0.3);
 }
 </style>

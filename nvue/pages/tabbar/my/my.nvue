@@ -1,35 +1,79 @@
 <template>
-	<view class="flex-1  flex-center">
-		<view class="bg-color-1">
-			<button @click="logout">logout</button>
-			<view class="">user:{{ user._id }}</view>
-			<view class="">token:{{ token }}</view>
+	<view class="flex-1 bg-main">
+		<!--导航栏 -->
+		<navigator-bar custom bgc="#ffffff"><icon-button @clickIcon="clickIcon" icon="\ue61d"></icon-button></navigator-bar>
+		<!-- user-info -->
+		<view class="user-info bg-white ">
+			<view class="user-info-container align-center ml-4 mr-3 flex-row">
+				<image class="avatar round-md mr-3" src="/static/logo.png" mode=""></image>
+				<view class="info flex-1 justify-between">
+					<text class="nickname text-bold">Mine</text>
+					<view class="row flex-row  align-center justify-between">
+						<text class="text-sec-color font-30">账号:xxxxx</text>
+						<view class="flex-row">
+							<text class="iconfont text-three-color font-30 ">&#xe701;</text>
+							<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
+		<!-- list -->
+		<view class="lists"><list-item more :class="{ 'my-2': i == 0, 'mt-2': i == 4 }" :data="item" v-for="(item, i) in lists" :key="i"></list-item></view>
 	</view>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+import listItem from '@/components/ui/list-item.vue';
+import iconButton from '@/components/ui/icon-button.vue';
+import { mapState, mapMutations } from 'vuex';
 export default {
+	components: {
+		navigatorBar,
+		iconButton,
+		listItem
+	},
 	data() {
-		return {};
+		return {
+			lists: []
+		};
 	},
 	computed: {
-		...mapState({
-			user: state => state.user.user,
-			token: state => state.user.token
-		})
+		...mapState(['userInfo', 'token', 'hasLogin'])
+	},
+	mounted() {
+		this.temp();
 	},
 	methods: {
-		...mapActions(['LOGOUT']),
-		logout() {
-			this.LOGOUT();
-			uni.reLaunch({
-				url: '/pages/login/login'
-			});
+		temp() {
+			let obj = {
+				title: 'item',
+				icon: '\ue612'
+			};
+			for (let i = 0; i < 5; i++) {
+				this.lists.push(obj);
+			}
+		},
+
+		clickIcon() {
+			console.log(2134);
 		}
 	}
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.user-info {
+	padding-top: 70rpx;
+	padding-bottom: 70rpx;
+}
+.avatar {
+	height: 100rpx;
+	width: 100rpx;
+}
+
+.info {
+	height: 100rpx;
+}
+</style>

@@ -40,6 +40,10 @@
 	background-color: rgba(243, 244, 246, 1);
 }
 
+.bg-main {
+	background-color: #ededed;
+}
+
 .bg-white {
 	background-color: #FFFFFF;
 }

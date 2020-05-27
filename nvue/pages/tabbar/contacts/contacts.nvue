@@ -1,50 +1,17 @@
 <template>
-	<view>
+	<scroller show-scrollbar="false" class="bg-main">
 		<!--导航栏 -->
 		<navigator-bar title="通讯录"></navigator-bar>
-		<!-- 联系人列表 -->
 		<!-- 顶部固定列表 -->
-		<view class="top-list">
-			<view @click="clickTopItem" class="list-item flex-row align-center" v-for="(item, i) in topMenu" :key="i">
-				<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
-				<view class="list-right justify-center   border-bottom flex-1">
-					<text class="font-35 text-main-color">{{ item.name }}</text>
-				</view>
-			</view>
-		</view>
+		<view class="top-lists"><list-item :data="item" v-for="(item, i) in topMenu" :key="i"></list-item></view>
 
 		<!-- 通讯录 -->
-		<!-- <view class="contacts">
-			<view class="flex-row " v-for="(items, i) in contacts" :key="i">
-				<view class="list-item w-100">
-					<text class="line bg-color-2 text-three-color pl-3  font-30">{{ items.letter }}</text>
-					<view class="flex-row align-center " v-for="(item, index) in items.lists" :key="index">
-						<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
-						<view class="list-right justify-center   border-bottom flex-1">
-							<text class="font-35 text-main-color">{{ item }}</text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view> -->
-
-		<view class="contacts">
-			<view class="flex-row " v-if="contacts.length" v-for="(items, i) in contacts" :key="i">
-				<view class="list-item w-100">
-					<text class="line bg-color-2 text-three-color pl-3  font-30"></text>
-					<view class="flex-row align-center ">
-						<image class="avatar mx-3" src="../../../static/logo.png" mode=""></image>
-						<view class="list-right justify-center   border-bottom flex-1">
-							<text class="font-35 text-main-color" >{{ items.friend_id.nickname || items.friend_id.username }}</text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-	</view>
+		<view class="contacts mt-4"><list-item :data="item" v-for="(item, i) in contacts" :key="i"></list-item></view>
+	</scroller>
 </template>
 
 <script>
+import listItem from '@/components/ui/list-item.vue';
 import navigatorBar from '@/components/ui/navigation-bar.vue';
 import { Friend } from '@/model/Friend.js';
 import { mapState, mapMutations } from 'vuex';
@@ -53,17 +20,17 @@ import socketIo from '../../../static/temp.js';
 import weappIo from '../../../static/weapp.socket.io.js';
 export default {
 	components: {
+		listItem,
 		navigatorBar
 	},
 	data() {
 		return {
-			topMenu: [{ name: '新的朋友' }, { name: '群聊' }, { name: '标签' }],
-			contacts: [
-				{
-					letter: 'A',
-					lists: ['哈哈哈', '哈哈哈', '哈哈哈', '哈哈哈']
-				}
-			]
+			topMenu: [
+				{ title: '新的朋友', img: '/static/images/friend.png' },
+				{ title: '群聊', img: '/static/images/group.png' },
+				{ title: '标签', img: '/static/images/tag.png' }
+			],
+			contacts: []
 		};
 	},
 	computed: {
@@ -73,22 +40,43 @@ export default {
 		})
 	},
 
-	mounted() {},
+	mounted() {
+		this.temp();
+	},
 	onShow() {
-		this.getFriendList();
+		// this.getFriendList();
 	},
-	onLoad() {
-	},
+	onLoad() {},
 	methods: {
-		async getFriendList() {
-			const res = await Friend.getFriendList(this.user._id);
-			this.contacts = res.data;
-			
+		temp() {
+			let obj = {
+				img: '/static/images/friend.png',
+				title: '测试为re'
+			};
+			for (let i = 0; i < 20; i++) {
+				this.contacts.push(obj);
+			}
 		},
+		// async getFriendList() {
+		// 	const res = await Friend.getFriendList(this.user._id);
+		// 	console.log(res, '34');
+		// 	this.contacts = res.data;
+		// },
 
 		clickTopItem() {
 			uni.navigateTo({
-				url: '../../applyList/applyList'
+				url: '/pages/applyList/applyList'
+			});
+		},
+
+		// 聊天
+		send(e) {
+			let params = {
+				toId: e.friend_id._id,
+				name: e.friend_id.nickname || e.friend_id._id.username
+			};
+			uni.navigateTo({
+				url: `/pages/compage/chat/chat?params=${params}`
 			});
 		}
 	}
@@ -107,5 +95,24 @@ export default {
 .line {
 	height: 60rpx;
 	line-height: 60rpx;
+}
+
+.text1 {
+	font-weight: 100;
+}
+.text2 {
+	font-weight: 200;
+}
+.text3 {
+	font-weight: 300;
+}
+.text4 {
+	font-weight: 400;
+}
+.text5 {
+	font-weight: 500;
+}
+.text6 {
+	font-weight: 600;
 }
 </style>

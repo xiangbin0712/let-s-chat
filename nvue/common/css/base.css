@@ -133,23 +133,23 @@
 
 /* margin-bottom */
 .mb-1 {
-	margin-top: 10rpx;
+	margin-bottom: 10rpx;
 }
 
 .mb-2 {
-	margin-top: 20rpx;
+	margin-bottom: 20rpx;
 }
 
 .mb-3 {
-	margin-top: 30rpx;
+	margin-bottom: 30rpx;
 }
 
 .mb-4 {
-	margin-top: 40rpx;
+	margin-bottom: 40rpx;
 }
 
 .mb-5 {
-	margin-top: 50rpx;
+	margin-bottom: 50rpx;
 }
 
 /* margin-left margin-right */
@@ -299,6 +299,18 @@
 
 .text-white {
 	color: #FFFFFF;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
 }
 
 /* 文字换行溢出处理 */
