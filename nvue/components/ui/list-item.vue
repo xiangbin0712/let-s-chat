@@ -17,6 +17,8 @@
 			</view>
 			<!-- <text class="iconfont">\ue612</text> -->
 			<text v-if="more" class="iconfont text-three-color font-30 ">&#xe93d;</text>
+			<!-- status -->
+			<view class=""><slot></slot></view>
 		</view>
 	</view>
 </template>
@@ -24,9 +26,9 @@
 <script>
 export default {
 	props: {
-		// title: String,
-		// img: String,
 		data: Object,
+		more: Boolean, //是否有more 图标
+		chat: Boolean, //是否聊天列表
 		iconSize: {
 			type: [String, Number],
 			default: '80'
@@ -38,15 +40,6 @@ export default {
 		rightHeight: {
 			type: [String, Number],
 			default: '110'
-		},
-		chat: {
-			// 是否是聊天列表
-			type: Boolean,
-			default: false
-		},
-		more: {
-			type: Boolean,
-			default: false
 		}
 	},
 	data() {

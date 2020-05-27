@@ -1,18 +1,31 @@
 <!-- 用户详情 名片页 -->
 <template>
-	<view class="visiting flex-1" style="background-color: #f5f5f5">
-		<view class="userinfo bg-white py-5 flex-row border">
-			<image class="avatar ml-3 mr-4" src="../../../static/logo.png" mode=""></image>
-			<view class="text">
-				<text class="nickname text-main-color text-bold font-40" v-if="info.nickname">{{ info.nickname }}</text>
-				<text class="username font-35 text-sec-color" v-if="info.username">账号:{{ info.username }}</text>
-				<text class="area font-35 text-sec-color" v-if="info.area">地区:{{ info.area }}</text>
+	<view class="flex-1 bg-main">
+		<view class="user-info bg-white border-bottom flex-row">
+			<image class="avatar mx-3 round-md" src="../../../static/images/friend.png" mode=""></image>
+			<view class="userinfo-riht">
+				<text class="nickname text-bold">Mine</text>
+				<text class="username font-30 text-three-color mt-1">账号:xxxxx</text>
+				<text class="area font-30 text-three-color mt-1">地区:xxx</text>
 			</view>
 		</view>
-		<!-- 已经是好友 -->
-		<view class="list bg-white align-center justify-center border-bottom" v-if="sendShow" @click="send"><text class="list-text  font-35">发消息</text></view>
-		<!--加好友  -->
-		<view v-if="addShow" class="list bg-white align-center justify-center border-bottom" @click="applyFriend"><text class="list-text font-35">添加到通讯录</text></view>
+
+		<view class="list border-bottom bg-white align-center mt-2 flex-row  justify-between">
+			<text class="title font-35 text-main-color ml-3">朋友圈</text>
+			<text class="iconfont text-three-color mr-3 font-35 ">&#xe93d;</text>
+		</view>
+		<view class="list border-bottom bg-white align-center mb-3 flex-row  justify-between">
+			<text class="title font-35 text-main-color ml-2">更多信息</text>
+			<text class="iconfont text-three-color mr-3 font-35 ">&#xe93d;</text>
+		</view>
+
+		<!-- 发消息  -->
+		<view class="list flex-center bg-white flex-row" v-if="!isFriend">
+			<text class="list-text font-40 text-bold iconfont mr-1">&#xe61c;</text>
+			<text class="list-text font-40 text-bold">发消息</text>
+		</view>
+		<!-- 添加好友 -->
+		<view class="list bg-white flex-center" v-else><text class="list-text text-bold font-40">添加到通讯录</text></view>
 	</view>
 </template>
 
@@ -21,6 +34,7 @@ import { Friend } from '@/model/Friend.js';
 import { Search } from '@/model/Search.js';
 import { mapState, mapMutations } from 'vuex';
 export default {
+	components: {},
 	data() {
 		return {
 			friendId: '',
@@ -43,10 +57,14 @@ export default {
 			return false;
 		}
 	},
+	onNavigationBarButtonTap(e) {
+		if (!e.index) {
+		}
+	},
 	onLoad(options) {
 		options.id ? (this.friendId = options.id) : '';
-		this.getUser(); //获取用户信息
-		this.checkFriend(); //是否好友
+		// this.getUser(); //获取用户信息
+		// this.checkFriend(); //是否好友
 	},
 	methods: {
 		async getUser() {
@@ -65,14 +83,17 @@ export default {
 		// 好友申请
 		applyFriend() {
 			uni.navigateTo({
-				url:`../applyFriend/applyFriend?friendId=${this.friendId}`
-			})
+				url: `../applyFriend/applyFriend?friendId=${this.friendId}`
+			});
 		}
 	}
 };
 </script>
 
 <style scoped>
+.user-info {
+	padding-bottom: 60rpx;
+}
 .avatar {
 	height: 130rpx;
 	width: 130rpx;

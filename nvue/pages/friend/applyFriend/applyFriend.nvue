@@ -1,0 +1,58 @@
+<template>
+	<view class="flex-1 bg-white">
+		<!--导航栏 -->
+		<navigator-bar custom bgc="#ffffff">
+			<view @click="send" class="send-btn flex-center mr-3 flex-1 round-md"><text class="text-white font-35">发送</text></view>
+		</navigator-bar>
+		<view class="align-center" style="margin-top: 100rpx;"><text class="text-bold">申请添加好友</text></view>
+		<!-- 发送申请问候语 -->
+		<view class="chunk mx-5  mb-3 my-5">
+			<text class="title font-30 text-sec-color">发送添加朋友申请</text>
+			<view class="box round-md  mt-1 bg-color-1 pl-2 py-2 pr-2"><textarea style="height: 120rpx;" class="font-35" v-model="hello" placeholder="请输入问候语" /></view>
+		</view>
+		<!-- 设备备注 -->
+		<view class="chunk mt-4 mx-5">
+			<text class="title font-30 text-sec-color">设备备注</text>
+			<view class="box round-md mt-1 bg-color-1 pl-2 py-2 pr-2"><input type="text" class="font-35" v-model="nickname" /></view>
+		</view>
+		<!-- 权限 -->
+		<permission-setting @permission="permission"></permission-setting>
+	</view>
+</template>
+
+<script>
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+import permissionSetting from '@/components/ui/permission-setting.vue';
+export default {
+	components: {
+		navigatorBar,
+		permissionSetting
+	},
+	data() {
+		return {
+			hello: '请求添加你为好有',
+			nickname: 'xcxx'
+		};
+	},
+	computed: {},
+	mounted() {},
+	methods: {
+		// 从组件传递的权限数据
+		permission(e) {
+			console.log(e, '权限限制');
+		},
+		// 发送好友请求
+		send() {
+			console.log('发送好友请求');
+		}
+	}
+};
+</script>
+
+<style scoped>
+.send-btn {
+	background-color: #08c060;
+	height: 60rpx;
+	width: 100rpx;
+}
+</style>

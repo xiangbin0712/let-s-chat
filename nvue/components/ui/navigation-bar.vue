@@ -28,7 +28,14 @@
 				</view>
 			</view>
 		</popup> -->
-		<cPopup></cPopup>
+		<cPopup ref="popup" transformOrigin="right top" :width="270" :height="height">
+			<view class="popup-content flex-1 round-md">
+				<view @click="clickMenu(item)" class="popup-list-item pl-3 align-center  flex-1 flex-row" v-for="(item, i) in menus" :key="i">
+					<text class="text-white iconfont mr-2 font-30">{{ item.icon }}</text>
+					<text class="text-white font-30">{{ item.text }}</text>
+				</view>
+			</view>
+		</cPopup>
 	</view>
 </template>
 
@@ -57,24 +64,35 @@ export default {
 			default: '#ededed'
 		}
 	},
+	computed: {
+		height() {
+			return this.menus.length * 100;
+		}
+	},
+
 	data() {
 		return {
 			statusBarHeight: 0,
 			menus: [
 				{
 					text: '发起群聊',
+					icon: '\ue701',
 					event: 'groupChat'
 				},
 				{
 					text: '添加朋友',
-					event: 'addFriend'
+					icon: '\ue701',
+					event: 'addFriend',
+					path: '/pages/compage/addFriend/addFriend'
 				},
 				{
 					text: '扫一到',
+					icon: '\ue701',
 					event: 'qrCode'
 				},
 				{
 					text: '帮助与反馈',
+					icon: '\ue701',
 					event: ''
 				}
 			]
@@ -89,13 +107,20 @@ export default {
 	onLoad() {},
 	methods: {
 		add() {
-			let x = uni.upx2px(415);
-			let y = uni.upx2px(150);
+			let x = uni.upx2px(465);
+			let y = uni.upx2px(170);
 			this.$refs.popup.open(x, y);
 		},
 
 		search() {
 			console.log('search');
+		},
+
+		clickMenu(item) {
+			// console.log(item, 123);
+			uni.navigateTo({
+				url: item.path
+			});
 		}
 	}
 };
@@ -104,5 +129,9 @@ export default {
 <style scoped>
 .sticky {
 	position: sticky;
+}
+
+.popup-content {
+	background-color: #4c4c4c;
 }
 </style>

@@ -1,6 +1,56 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/find/moment/moment",
+			"style": {}
+		},
+		{
+			"path": "pages/friend/applyFriend/applyFriend",
+			"style": {
+				"app-plus": {}
+			}
+		},
+		{
+			"path": "pages/compage/visiting/visiting",
+			"style": {
+				"app-plus": {
+					"navigationBarBackgroundColor": "#ffffff",
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/friend/applyList/applyList",
+			"style": {
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "新的朋友",
+								"float": "left",
+								"fontWeight": "bold",
+								"fontSize": "18px",
+								"width": "100px"
+							},
+							{
+								"text": "添加朋友",
+								"float": "right",
+								"fontSize": "18px",
+								"width": "100px"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/friend/addFriend/addFriend",
+			"style": {}
+		},
+		{
 			"path": "pages/tabbar/index/index",
 			"style": {}
 		},
@@ -25,73 +75,12 @@
 		{
 			"path": "pages/compage/chat/chat",
 			"style": {}
-		},
-		{
-			"path": "pages/applyList/applyList",
-			"style": {
-				"app-plus": {
-					"navigationBarBackgroundColor": "#f5f5f5",
-					"titleNView": {
-						"buttons": [{
-								"text": "新的朋友",
-								"float": "left",
-								"fontWeight": "bold",
-								"fontSize": "18px",
-								"width": "100px"
-							},
-							{
-								"text": "添加朋友",
-								"float": "right",
-								"fontSize": "18px",
-								"width": "100px"
-							}
-						]
-					}
-				}
-			}
-		},
-
-		{
-			"path": "pages/compage/visiting/visiting",
-			"style": {
-				"app-plus": {
-					"navigationBarBackgroundColor": "#ffffff",
-					"titleNView": {
-						"buttons": [{
-							"type": "menu"
-						}]
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/compage/addFriend/addFriend",
-			"style": {}
-		},
-
-
-		{
-			"path": "pages/compage/applyFriend/applyFriend",
-			"style": {
-				"app-plus": {
-					"navigationBarBackgroundColor": "#ffffff",
-					"titleNView": {
-						"buttons": [{
-							"text": "发送",
-							"fontSize": "18px",
-							"width": "100px"
-						}]
-					}
-				}
-			}
 		}
-
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		// "navigationBarTitleText": "Let's Chat",
-		"navigationBarBackgroundColor": "#f7f7f7",
+		"navigationBarBackgroundColor": "ededed",
 		"backgroundColor": "red",
 		"app-plus": {
 			"titleNView": false,

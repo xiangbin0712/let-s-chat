@@ -1,30 +1,28 @@
 <template>
-	<view class="flex-1" style="background-color: #f5f5f5;">
+	<view class="flex-1 bg-main">
 		<view class="add-friend" v-if="!search">
-			<navigator-bar :hasRight="hasRight" title="添加朋友"></navigator-bar>
+			<navigator-bar custom title="添加朋友"></navigator-bar>
 			<!-- top -->
 			<view class="top ">
 				<view @click="search = true" class="fake-input align-center justify-center round-md mx-3 bg-white"><text class="font-30 text-three-color">输入昵称</text></view>
 				<view class="mine align-center mt-3"><text class="text-sec-color font-30">我的账号:123123</text></view>
 			</view>
-			<view class="list flex-row bg-white flex-row   align-center" v-for="(item, i) in lists" :key="i">
-				<image class="icon mx-3" src="../../../static/logo.png" mode=""></image>
-				<view class="right justify-center flex-1 border-bottom">
-					<text class="text-main-color font-35">{{ item.title }}</text>
-					<text class="font-20 text-three-color">{{ item.desc }}</text>
-				</view>
-			</view>
+
+			<!-- list -->
+			<list-item :data="item" more chat v-for="(item, i) in lists" :key="i"></list-item>
 		</view>
 		<view class="search" v-else><serach @cancel="search = false"></serach></view>
 	</view>
 </template>
 
 <script>
+import listItem from '@/components/ui/list-item.vue';
 import navigatorBar from '@/components/ui/navigation-bar.vue';
 import serach from '@/components/ui/search.vue';
 export default {
 	components: {
 		serach,
+		listItem,
 		navigatorBar
 	},
 	data() {
@@ -33,14 +31,24 @@ export default {
 			search: false,
 			lists: [
 				{
-					icon: '',
-					title: '哈哈哈',
-					desc: '详细介绍'
+					img: '/static/logo.png',
+					title: '雷达加朋友',
+					info: '添加身边的朋友'
 				},
 				{
-					icon: '',
-					title: '哈哈哈',
-					desc: '详细介绍'
+					img: '/static/logo.png',
+					title: '面对面建群',
+					info: '让身边的朋友进入同一个群聊'
+				},
+				{
+					img: '/static/logo.png',
+					title: '扫一扫',
+					info: '扫描二维码名片'
+				},
+				{
+					img: '/static/logo.png',
+					title: '手机联系人',
+					info: '添加或邀请通讯录中的联系人'
 				}
 			]
 		};

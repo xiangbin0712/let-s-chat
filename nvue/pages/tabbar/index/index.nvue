@@ -10,13 +10,14 @@
 			<list-item :data="item" @longpress="longpress" @onCLick="onCLick" chat iconSize="90" rightHeight="120" :img="item.img" v-for="(item, i) in chats" :key="i"></list-item>
 			<!-- <block v-for="item in 20" :key="item"><chat-list @longTouch="longTouch"></chat-list></block> -->
 		</scroller>
-		<!-- <popup mask width="240" height="100" maskValue="1" ref="popup">
-			<view style="width: 240rpx;height: 200rpx;" class="flex">
-				<view class=" flex-1 flex-center"><text class="font-md">取消置顶</text></view>
-				<view class="flex-1 flex-center"><text class="font-md">删除聊天</text></view>
+		<!-- 列表长按 出现的菜单 -->
+		<c-popup ref="popup" :height="height" :width="240">
+			<view class="bg-white popup-content border round-md flex-1">
+				<view class="justify-center pl-3 flex-1" @click="clickMenu(item)" hover-class="bg-main" v-for="(item, i) in menus" :key="i">
+					<text class="font-35 text-main-color">{{ item.text }}</text>
+				</view>
 			</view>
-		</popup> -->
-		<c-popup ref="popup"><view height="200" width="200" class="bg-white popup-content round-md flex-1">112312323</view></c-popup>
+		</c-popup>
 	</view>
 </template>
 
@@ -36,11 +37,30 @@ export default {
 	},
 	data() {
 		return {
-			chats: []
+			chats: [],
+			menus: [
+				{
+					text: '标位已读',
+					event: ''
+				},
+				{
+					text: '设为置顶',
+					event: ''
+				},
+				{
+					text: '删除该聊天',
+					event: ''
+				}
+			]
 		};
 	},
 	computed: {
-		...mapState(['userInfo', 'token', 'hasLogin'])
+		...mapState(['userInfo', 'token', 'hasLogin']),
+
+		// 计算 悬浮菜单尺寸
+		height() {
+			return this.menus.length * 100;
+		}
 	},
 	mounted() {
 		this.demo();
@@ -60,13 +80,16 @@ export default {
 			}
 		},
 
+		// 列表点击
 		onCLick() {
-			this.$refs.popup.open();
+			// this.$refs.popup.open();
 		},
 		// 聊天列表长按
 		longpress(e) {
 			this.$refs.popup.open(e.x, e.y);
-		}
+		},
+		// 点击悬浮菜单
+		clickMenu(item) {}
 	}
 };
 </script>
@@ -90,6 +113,6 @@ export default {
 }
 
 .popup-content {
-	box-shadow: 0px 2px 20px -8px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 20px -8px rgba(0, 0, 0, 1);
 }
 </style>
