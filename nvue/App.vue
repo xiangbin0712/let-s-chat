@@ -2,29 +2,23 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	onLaunch: function() {
-		// console.log('App Launch')
 		// #ifdef APP-PLUS-NVUE
 		// 加载公共图标库
 		const domModule = weex.requireModule('dom');
 		domModule.addRule('fontFace', {
 			fontFamily: 'iconfont',
 			// src: "url('https://at.alicdn.com/t/font_1365296_2ijcbdrmsg.ttf')",
-			src: "url('http://at.alicdn.com/t/font_1630639_urw9zwsk1e.ttf')",
+			src: "url('http://at.alicdn.com/t/font_1630639_0jh16dsvmhy.ttf')"
 		});
 		// #endif
 
 		// 这里可以调用刷新token有效期
-		
-		this.$store.dispatch('INITLOGIN')
 
-
+		// init
+		this.$store.dispatch('init');
 	},
-	computed: {
-		...mapState([''])
-	},
-	methods: {
-	
-	},
+	computed: {},
+	methods: {},
 
 	onShow: function() {
 		console.log('App Show');

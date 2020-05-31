@@ -2,18 +2,18 @@
 	<view class="flex-1 bg-white">
 		<!--导航栏 -->
 		<navigator-bar custom bgc="#ffffff">
-			<view @click="send" class="send-btn flex-center mr-3 flex-1 round-md"><text class="text-white font-35">发送</text></view>
+			<view @click="send" class="send-btn flex-center mr-3 flex-1 round-md"><text class="text-white font-30">发送</text></view>
 		</navigator-bar>
 		<view class="align-center" style="margin-top: 100rpx;"><text class="text-bold">申请添加好友</text></view>
 		<!-- 发送申请问候语 -->
 		<view class="chunk mx-5  mb-3 my-5">
 			<text class="title font-30 text-sec-color">发送添加朋友申请</text>
-			<view class="box round-md  mt-1 bg-color-1 pl-2 py-2 pr-2"><textarea style="height: 120rpx;" class="font-35" v-model="hello" placeholder="请输入问候语" /></view>
+			<view class="box round-md  mt-1 bg-color-1 pl-2 py-2 pr-2"><textarea style="height: 120rpx;" class="font-30" v-model="hello" placeholder="请输入问候语" /></view>
 		</view>
 		<!-- 设备备注 -->
 		<view class="chunk mt-4 mx-5">
 			<text class="title font-30 text-sec-color">设备备注</text>
-			<view class="box round-md mt-1 bg-color-1 pl-2 py-2 pr-2"><input type="text" class="font-35" v-model="nickname" /></view>
+			<view class="box round-md mt-1 bg-color-1 pl-2 py-2 pr-2"><input type="text" class="font-30" v-model="nickname" /></view>
 		</view>
 		<!-- 权限 -->
 		<permission-setting @permission="permission"></permission-setting>
@@ -23,6 +23,8 @@
 <script>
 import navigatorBar from '@/components/ui/navigation-bar.vue';
 import permissionSetting from '@/components/ui/permission-setting.vue';
+import { Friend } from '@/model/Friend.js';
+import { mapState } from 'vuex';
 export default {
 	components: {
 		navigatorBar,
@@ -31,19 +33,49 @@ export default {
 	data() {
 		return {
 			hello: '请求添加你为好有',
-			nickname: 'xcxx'
+			nickname: '',
+			friendId: '',
+			lookhim: 1,
+			lookme: 1
 		};
 	},
-	computed: {},
+	onLoad(options) {
+		if (options.friendId) {
+			this.friendId = options.friendId;
+			this.nickname = options.nickname;
+		}
+	},
+	computed: {
+		...mapState(['user'])
+	},
 	mounted() {},
 	methods: {
 		// 从组件传递的权限数据
 		permission(e) {
-			console.log(e, '权限限制');
+			this.lookhim = e.lookhim;
+			this.lookme = e.lookme;
 		},
 		// 发送好友请求
-		send() {
-			console.log('发送好友请求');
+		async send() {
+			let params = {
+				apply_value: this.hello,
+				nickname: this.nickname,
+				user_id: this.user._id,
+				friend_id: this.friendId,
+				lookme: this.lookme,
+				lookhim: this.lookhim
+			};
+
+			// 申请好友api
+			const res = await Friend.applyFriend(params);
+			uni.showToast({
+				title: '发送成功'
+			});
+			setTimeout(() => {
+				uni.navigateBack({
+					delta: 1
+				});
+			}, 300);
 		}
 	}
 };

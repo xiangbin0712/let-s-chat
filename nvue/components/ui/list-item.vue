@@ -58,7 +58,7 @@ export default {
 
 	methods: {
 		onClick() {
-			this.$emit('onCLick');
+			this.$emit('onCLick',this.data);
 		},
 		// 长按
 		longpress(e) {

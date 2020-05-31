@@ -27,6 +27,11 @@
 	color: rgba(39, 40, 50, 0.4);
 }
 
+
+.text-blue {
+	color: #526091;
+}
+
 /* 背景色 */
 .bg-dark-color {
 	background-color: rgba(39, 40, 50, 0.2);

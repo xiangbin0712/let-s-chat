@@ -3,13 +3,13 @@
 		<!--导航栏 -->
 		<navigator-bar custom bgc="#ffffff"><icon-button @clickIcon="clickIcon" icon="\ue61d"></icon-button></navigator-bar>
 		<!-- user-info -->
-		<view class="user-info bg-white ">
+		<view class="user-info bg-white" @click="goDetail">
 			<view class="user-info-container align-center ml-4 mr-3 flex-row">
-				<image class="avatar round-md mr-3" src="/static/logo.png" mode=""></image>
+				<image class="avatar round-md mr-3" :src="user.avatar" mode=""></image>
 				<view class="info flex-1 justify-between">
-					<text class="nickname text-bold">Mine</text>
+					<text class="nickname text-bold">{{ user.nickname || user.username }}</text>
 					<view class="row flex-row  align-center justify-between">
-						<text class="text-sec-color font-30">账号:xxxxx</text>
+						<text class="text-sec-color font-30">账号:{{ user.username }}</text>
 						<view class="flex-row">
 							<text class="iconfont  text-three-color font-30 ">&#xe701;</text>
 							<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
@@ -20,6 +20,8 @@
 		</view>
 		<!-- list -->
 		<view class="lists"><list-item more :class="{ 'my-2': i == 0, 'mt-2': i == 4 }" :data="item" v-for="(item, i) in lists" :key="i"></list-item></view>
+		<!-- 测试 -->
+		<button type="default" @click="logout">logout</button>
 	</view>
 </template>
 
@@ -27,7 +29,8 @@
 import navigatorBar from '@/components/ui/navigation-bar.vue';
 import listItem from '@/components/ui/list-item.vue';
 import iconButton from '@/components/ui/icon-button.vue';
-import { mapState, mapMutations } from 'vuex';
+import { config } from '@/config/config';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
 	components: {
 		navigatorBar,
@@ -40,12 +43,15 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['userInfo', 'token', 'hasLogin'])
+		...mapState({
+			user: state => state.user
+		})
 	},
 	mounted() {
 		this.temp();
 	},
 	methods: {
+		...mapActions(['logout']),
 		temp() {
 			let obj = {
 				title: 'item',
@@ -57,7 +63,13 @@ export default {
 		},
 
 		clickIcon() {
-			console.log(2134);
+			console.log(2134132);
+		},
+		// 个人详情
+		goDetail() {
+			uni.navigateTo({
+				url: '/pages/user/userDetail/userDetail'
+			});
 		}
 	}
 };

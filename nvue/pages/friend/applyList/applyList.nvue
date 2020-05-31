@@ -1,19 +1,24 @@
 <template>
 	<view class="flex-1 bg-main">
 		<scroll-view scroll-y="true" class="flex-1">
-			<list-item chat :data="item" v-for="(item, i) in applyList" :key="i">
-				<!-- status -->
-				<!-- <view class="btn  flex-1 flex-center  round-sm"><text class="text-white font-35">同意</text></view> -->
-				<!-- <view class="btn  flex-1 flex-center  round-sm"><text class="text-white font-35">拒绝</text></view> -->
-				<text class="font-35 text-three-color">已添加</text>
-				<text class="font-35 text-three-color">已拒绝</text>
-			</list-item>
+			<view class="item  align-center flex-row" v-for="(item, i) in applyList" :key="i">
+				<image class="avatar ml-2 round-md" :src="item.user_id.avatar" mode=""></image>
+				<view class="right py-1 flex-row border-bottom  flex-1 align-center justify-between mx-3">
+					<view class="text">
+						<text class="font-35">{{ item.user_id.nickname || item.user_id.username }}</text>
+						<text class="font-30 text-sec-color">{{ item.apply_value }}</text>
+					</view>
+					<view class="status">
+						<text class="font-30 text-sec-color" v-if="item.status == 'agree'">已添加</text>
+						<view class="btn flex-center round-sm" @click="agree(item._id)" v-else><text class="font-30">同意</text></view>
+					</view>
+				</view>
+			</view>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
-	
 import listItem from '@/components/ui/list-item.vue';
 import { Friend } from '@/model/Friend.js';
 import { mapState, mapMutations } from 'vuex';
@@ -23,18 +28,7 @@ export default {
 	},
 	data() {
 		return {
-			applyList: [
-				{
-					img: '/static/logo.png',
-					title: 'xxxxx',
-					info: '请求添加你为好友'
-				},
-				{
-					img: '/static/logo.png',
-					title: 'xxxxx',
-					info: '请求添加你为好友'
-				}
-			]
+			applyList: []
 		};
 	},
 	onNavigationBarButtonTap(e) {
@@ -46,14 +40,14 @@ export default {
 	},
 
 	computed: {
-		...mapState(['userInfo'])
+		...mapState(['user'])
 	},
 	mounted() {
-		// this.getApplyList();
+		this.getApplyList();
 	},
 	methods: {
 		async getApplyList() {
-			const res = await Friend.getApplyList(this.userInfo._id);
+			const res = await Friend.getApplyList(this.user._id);
 			this.applyList = res.data;
 		},
 
@@ -67,9 +61,13 @@ export default {
 </script>
 
 <style scoped>
+.avatar {
+	height: 80rpx;
+	width: 80rpx;
+}
 .btn {
 	height: 60rpx;
 	width: 100rpx;
-	background-color: #2ba245;
+	background-color: #08c060;
 }
 </style>

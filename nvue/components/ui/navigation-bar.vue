@@ -21,13 +21,6 @@
 			</view>
 		</view>
 		<!-- 扩展菜单 -->
-		<!-- <popup mask width="320" height="400" maskValue="1" bg="#4C4C4C" ref="popup">
-			<view style="width: 320rpx;height: 400rpx;" class="flex ">
-				<view class=" flex-1 flex-center" v-for="item in menus" @click="clickMenu(item)" :key="item.text">
-					<text class="font-md text-white">{{ item.text }}</text>
-				</view>
-			</view>
-		</popup> -->
 		<cPopup ref="popup" transformOrigin="right top" :width="270" :height="height">
 			<view class="popup-content flex-1 round-md">
 				<view @click="clickMenu(item)" class="popup-list-item pl-3 align-center  flex-1 flex-row" v-for="(item, i) in menus" :key="i">
@@ -41,11 +34,9 @@
 
 <script>
 import iconButton from '@/components/ui/icon-button.vue';
-// import popup from './popup.vue';
 import cPopup from './cPopup.vue';
 export default {
 	components: {
-		// popup,
 		cPopup,
 		iconButton
 	},
@@ -83,7 +74,7 @@ export default {
 					text: '添加朋友',
 					icon: '\ue701',
 					event: 'addFriend',
-					path: '/pages/compage/addFriend/addFriend'
+					path: '/pages/friend/addFriend/addFriend'
 				},
 				{
 					text: '扫一到',
@@ -104,7 +95,6 @@ export default {
 		this.statusBarHeight = plus.navigator.getStatusbarHeight();
 		// #endif
 	},
-	onLoad() {},
 	methods: {
 		add() {
 			let x = uni.upx2px(465);
@@ -121,6 +111,9 @@ export default {
 			uni.navigateTo({
 				url: item.path
 			});
+		},
+		close() {
+			this.$refs.popup.close();
 		}
 	}
 };

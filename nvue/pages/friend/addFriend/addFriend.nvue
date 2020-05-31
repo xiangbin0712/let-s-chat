@@ -3,7 +3,7 @@
 		<view class="add-friend" v-if="!search">
 			<navigator-bar custom title="添加朋友"></navigator-bar>
 			<!-- top -->
-			<view class="top ">
+			<view class="top">
 				<view @click="search = true" class="fake-input align-center justify-center round-md mx-3 bg-white"><text class="font-30 text-three-color">输入昵称</text></view>
 				<view class="mine align-center mt-3"><text class="text-sec-color font-30">我的账号:123123</text></view>
 			</view>
@@ -31,24 +31,19 @@ export default {
 			search: false,
 			lists: [
 				{
-					img: '/static/logo.png',
-					title: '雷达加朋友',
-					info: '添加身边的朋友'
-				},
-				{
-					img: '/static/logo.png',
-					title: '面对面建群',
-					info: '让身边的朋友进入同一个群聊'
-				},
-				{
-					img: '/static/logo.png',
+					img: '/static/saoyisao.png',
 					title: '扫一扫',
 					info: '扫描二维码名片'
 				},
 				{
-					img: '/static/logo.png',
-					title: '手机联系人',
-					info: '添加或邀请通讯录中的联系人'
+					img: '/static/saoyisao.png',
+					title: '扫一扫',
+					info: '扫描二维码名片'
+				},
+				{
+					img: '/static/saoyisao.png',
+					title: '扫一扫',
+					info: '扫描二维码名片'
 				}
 			]
 		};
@@ -59,17 +54,9 @@ export default {
 
 <style scoped>
 .top {
-	height: 300rpx;
+	height: 250rpx;
 }
 .fake-input {
 	height: 70rpx;
-}
-.icon {
-	height: 70rpx;
-	width: 70rpx;
-}
-
-.right {
-	height: 130rpx;
 }
 </style>

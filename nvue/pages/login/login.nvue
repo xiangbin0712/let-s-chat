@@ -32,6 +32,7 @@ export default {
 		return {
 			type: 'login',
 			locked: false,
+			show: true,
 			form: {
 				username: '',
 				password: '',
@@ -47,27 +48,15 @@ export default {
 			this.form.rePassword = '';
 		}
 	},
-	computed: {
-		...mapState(['login'])
-	},
-	mounted() {
-		if (this.login) {
-			uni.switchTab({
-				url: '../tabbar/index/index'
-			});
-		}
-	},
-	created() {
-		let token = uni.getStorageSync('token');
-		if (token) {
-			uni.switchTab({
-				url: '/pages/tabbar/index/index'
-			});
-		}
-	},
+	computed: {},
+
+	mounted() {},
+	created() {},
 
 	methods: {
-		...mapActions(['LOGIN']),
+		...mapActions({
+			LOGIN: 'login'
+		}),
 
 		clickBtn() {
 			this.type == 'login' ? this._login() : this.register();
@@ -76,7 +65,6 @@ export default {
 		async _login() {
 			if (this.validata()) {
 				const res = await User.login(this.form);
-				console.log(res, 'login');
 				_toast('登录成功');
 				// 将信息储存起来
 				this.LOGIN(res.data);

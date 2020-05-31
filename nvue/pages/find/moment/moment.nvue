@@ -1,15 +1,209 @@
 <!-- 朋友圈 -->
 <template>
-	<view>123122313</view>
+	<view class="bg-white">
+		<view class="top temp-border mb-3">
+			<image class="top-bg" src="https://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg" mode="aspectFill"></image>
+			<image class="avatar round-md" src="https://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg" mode=""></image>
+			<text class="sign text-three-color">xxxxxx</text>
+			<text class="nickname text-white">Mine2343</text>
+		</view>
+		<navigation-transfrom :transNum="transNum" title="朋友圈"></navigation-transfrom>
+		<!-- 朋友圈列表 -->
+		<view class="friend-circle"><friend-circle-item @action="action" :index="i" v-for="(item, i) in lists" :key="i" :data="item"></friend-circle-item></view>
+	</view>
 </template>
 
 <script>
+import navigationTransfrom from '@/components/ui/navigation-transfrom-bar.vue';
+import friendCircleItem from '@/components/ui/friend-circle-item.vue';
 export default {
-	data() {
-		return {};
+	components: {
+		friendCircleItem,
+		navigationTransfrom
 	},
-	methods: {}
+	data() {
+		return {
+			transNum: 0,
+			lists: [
+				{
+					avatar: '/static/logo.png',
+					username: '昵称',
+					contextx: '测试是测试测试测试是测试测试测试是测试测试测试是测试测试测试是测试测试',
+					imgs: [
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						}
+					],
+					video: null,
+					create_time: '2019.1231.123',
+					supports: [], //点赞
+					comments: [
+						{
+							username: '测试1',
+							content: '测试1的评论'
+						}
+					]
+				},
+				,
+				{
+					avatar: '/static/logo.png',
+					username: '昵称',
+					contextx: '测试是测试测试测试是测试测试测试是测试测试测试是测试测试测试是测试测试',
+					imgs: [
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						},
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						}
+					],
+					video: null,
+					create_time: '2019.1231.123',
+					supports: [{ username: '昵称', avatar: 'static/logo.png' }], //点赞
+					comments: [
+						{
+							username: '测试1',
+							content: '测试1的评论'
+						},
+						{
+							username: '测试1',
+							content: '测试1的的评论的评论的评论的评论的评论的评论的评论的评论评论'
+						},
+						{
+							username: '测试1',
+							content: '测试1的评论'
+						},
+						{
+							username: '测试1',
+							content: '测试1的评论'
+						}
+					]
+				},
+
+				{
+					avatar: '/static/logo.png',
+					username: '昵称',
+					contextx: '测试是测试测试测试是测试测试测试是测试测试测试是测试测试测试是测试测试',
+					imgs: [
+						{
+							src: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg'
+						}
+					],
+					video: {
+						poster: 'https://douyinzcmcss.oss-cn-shenzhen.aliyuncs.com/shengchengqi/datapic/1.jpg',
+						src: '/static/video/demo.mp4'
+					},
+					create_time: '2019.1231.123',
+					supports: [{ username: '昵称', avatar: 'static/logo.png' }], //点赞
+					comments: [
+						{
+							username: '测试1',
+							content: '测试1的评论'
+						}
+					]
+				}
+			]
+		};
+	},
+	computed: {
+		// 渐变导航样式
+	},
+	onPageScroll(e) {
+		let scrollTop = e.scrollTop;
+		const start = 225;
+		const end = 308;
+		let h = end - start;
+		let num = 0;
+		if (scrollTop > start) {
+			num = (scrollTop - start) / h;
+		}
+		this.transNum = num > 1 ? 1 : num;
+	},
+	methods: {
+		action(e) {
+			let cData = e.data;
+			let cIndex = e.index;
+			uni.showActionSheet({
+				itemList: ['点赞', '评论', '取消'],
+				success: res => {
+					res.tapIndex ? this.comment(e.index) : this.like(cIndex);
+				}
+			});
+		},
+
+		// 点赞
+		like(i) {
+			this.lists[i].supports.push({
+				username: '测试2'
+			});
+		},
+		// 评论
+		comment() {
+			console.log(2);
+		}
+	}
 };
 </script>
 
-<style></style>
+<style scoped>
+.top {
+	height: 660rpx;
+	position: relative;
+}
+.top-bg {
+	height: 590rpx;
+	width: 750rpx;
+}
+
+.avatar {
+	height: 120rpx;
+	width: 120rpx;
+	position: absolute;
+	bottom: 44rpx;
+	right: 30rpx;
+}
+
+.sign {
+	position: absolute;
+	bottom: 0;
+	right: 30rpx;
+	font-size: 28rpx;
+}
+.nickname {
+	position: absolute;
+	bottom: 80rpx;
+	right: 170rpx;
+}
+
+.demo {
+	background-color: red;
+	height: 1000px;
+}
+</style>

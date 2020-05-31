@@ -6,7 +6,7 @@
 			<view class="box round-md mt-1 bg-color-1 pl-2  pr-2">
 				<radio-group @change="radioChange">
 					<label class="flex-row  align-center justify-between item" v-for="(item, index) in items" :key="item.value">
-						<text class="font-35">{{ item.name }}</text>
+						<text class="font-30">{{ item.name }}</text>
 						<view><radio :value="item.value" color="#00AD19" :checked="index === current" /></view>
 					</label>
 				</radio-group>
@@ -17,7 +17,7 @@
 			<text class="title font-30 text-sec-color">朋友圈和视频动态</text>
 			<view class="box round-md mt-1 bg-color-1 pl-2  pr-2">
 				<view class="item flex-row align-center justify-between border-bottom" v-for="(item, i) in switchs" :key="i">
-					<text class="font-35">{{ item.text }}</text>
+					<text class="font-30">{{ item.text }}</text>
 					<switch :checked="item.checked" @change="switchChange(i)" />
 				</view>
 			</view>
@@ -40,10 +40,12 @@ export default {
 					name: '仅聊天'
 				}
 			],
-			current: 0, // 0 是放开权限选择 1是仅聊天
+			current: 0,
 			switchs: [{ text: '不让他看我', checked: false }, { text: '不看他', checked: false }]
 		};
 	},
+
+	computed: {},
 
 	methods: {
 		switchChange(e) {
@@ -52,20 +54,28 @@ export default {
 		},
 
 		radioChange(e) {
-			const value = e.detail.value;
-			this.current = value / 1;
+			this.current = e.detail.value / 1;
 			this.emit();
 		},
 
-		// 数据上传
+		/**
+		 * 默认为我看他(1),他看我(1)
+		 * 如果仅是聊天 0 0
+		 * 将现有的值取反
+		 */
 		emit() {
-			let lookme = this.switchs[0].checked;
-			let lookhim = this.switchs[1].checked;
-			// 如果是仅聊天 将switch都设置为false
+			let lookhim = 1;
+			let lookme = 1;
+			// 仅聊天
 			if (this.current) {
-				lookme = false;
-				lookhim = false;
+				lookhim = 0;
+				lookme = 0;
+			} else {
+				// 默认为 1,1将现在的值取反
+				lookme = Number(!this.switchs[0].checked);
+				lookhim = Number(!this.switchs[1].checked);
 			}
+
 			this.$emit('permission', {
 				lookme,
 				lookhim

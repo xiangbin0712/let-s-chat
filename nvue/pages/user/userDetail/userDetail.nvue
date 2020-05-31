@@ -1,0 +1,118 @@
+<template>
+	<view class="bg-main flex-1">
+		<!--导航栏 -->
+		<navigator-bar title="个人中心" custom></navigator-bar>
+		<view @click="clickAvatar" class="py-1 mx-2 align-center border-bottom flex-row justify-between">
+			<text class="title font-30 text-bold text-main-color">头像</text>
+			<view class="right flex-row align-center">
+				<image @click="preview" class="avatar" :src="user.avatar" mode=""></image>
+				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
+			</view>
+		</view>
+		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
+			<text class="title font-30 text-bold text-main-color">昵称</text>
+			<view class="right flex-row align-center">
+				<text class="nickname">{{ user.nickname }}</text>
+				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
+			</view>
+		</view>
+		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
+			<text class="title font-30 text-bold text-main-color">账号</text>
+			<view class="right flex-row align-center">
+				<text class="nickname text-three-color font-30">{{ user.username }}</text>
+				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
+			</view>
+		</view>
+		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
+			<text class="title font-30 text-bold text-main-color">更多</text>
+			<view class="right flex-row align-center"><text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text></view>
+		</view>
+	</view>
+</template>
+
+<script>
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+import listItem from '@/components/ui/list-item.vue';
+import chatList from '@/components/ui/chat-list.vue';
+import cPopup from '@/components/ui/cPopup.vue';
+import iconButton from '@/components/ui/icon-button.vue';
+import { config } from '@/config/config.js';
+import { User } from '@/model/User.js';
+import { mapState, mapMutations } from 'vuex';
+export default {
+	components: {
+		cPopup,
+		listItem,
+		navigatorBar,
+		iconButton
+	},
+	data() {
+		return {};
+	},
+	computed: {
+		...mapState(['user'])
+	},
+
+	mounted() {},
+	onLoad() {},
+
+	methods: {
+		...mapMutations(['SET_USER']),
+		preview(e) {
+			// #ifdef APP-NVUE
+			e.stopPropagation();
+			// #endif
+			uni.previewImage({
+				urls: [this.user.avatar]
+			});
+		},
+
+		async updataUser(url, type = 'avatar') {
+			const res = await User.updataUser(this.user._id, url, type);
+			// 更新 vuex user
+			this.SET_USER(res.data);
+			uni.setStorage({
+				key: 'user',
+				data: res.data
+			});
+		},
+
+		clickAvatar() {
+			uni.chooseImage({
+				count: 1, //默认9
+				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				sourceType: ['album'], //从相册选择
+				success: chooseImageRes => {
+					const tempFilePaths = chooseImageRes.tempFilePaths;
+					const uploadTask = uni.uploadFile({
+						url: `${config.apiBaseUrl}/upload`,
+						filePath: tempFilePaths[0],
+						name: 'file',
+						formData: {
+							id: this.user._id,
+							local: 'user'
+						},
+						success: res => {
+							if (res.statusCode == 200) {
+								// 修改头像
+								const url = JSON.parse(res.data).data;
+								this.updataUser(url);
+							}
+						}
+					});
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style>
+.list {
+	height: 100rpx;
+}
+.avatar {
+	height: 100rpx;
+	width: 100rpx;
+}
+</style>

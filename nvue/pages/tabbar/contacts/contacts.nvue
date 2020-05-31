@@ -3,7 +3,7 @@
 		<!--导航栏 -->
 		<navigator-bar title="通讯录"></navigator-bar>
 		<!-- 顶部固定列表 -->
-		<view class="top-lists"><list-item :data="item" v-for="(item, i) in topMenu" :key="i"></list-item></view>
+		<view class="top-lists"><list-item @onCLick="clickTopItem" :data="item" v-for="(item, i) in topMenu" :key="i"></list-item></view>
 
 		<!-- 通讯录 -->
 		<view class="contacts mt-4"><list-item :data="item" v-for="(item, i) in contacts" :key="i"></list-item></view>
@@ -26,7 +26,7 @@ export default {
 	data() {
 		return {
 			topMenu: [
-				{ title: '新的朋友', img: '/static/images/friend.png' },
+				{ title: '新的朋友', img: '/static/images/friend.png', path: '/pages/friend/applyList/applyList' },
 				{ title: '群聊', img: '/static/images/group.png' },
 				{ title: '标签', img: '/static/images/tag.png' }
 			],
@@ -35,37 +35,32 @@ export default {
 	},
 	computed: {
 		...mapState({
-			user: state => state.user.user,
-			token: state => state.user.token
+			user: state => state.user
 		})
 	},
 
-	mounted() {
-		this.temp();
-	},
+	mounted() {},
 	onShow() {
-		// this.getFriendList();
+		this.getFriendList();
 	},
 	onLoad() {},
 	methods: {
-		temp() {
-			let obj = {
-				img: '/static/images/friend.png',
-				title: '测试为re'
-			};
-			for (let i = 0; i < 20; i++) {
+		// 获取好友列表
+		async getFriendList() {
+			const res = await Friend.getFriendList(this.user._id);
+			// 重新组织数据
+			res.data.forEach(item => {
+				let obj = {
+					img: item.user_id.avatar,
+					title: item.user_id.nickname || item.user_id.username
+				};
 				this.contacts.push(obj);
-			}
+			});
 		},
-		// async getFriendList() {
-		// 	const res = await Friend.getFriendList(this.user._id);
-		// 	console.log(res, '34');
-		// 	this.contacts = res.data;
-		// },
 
-		clickTopItem() {
+		clickTopItem(e) {
 			uni.navigateTo({
-				url: '/pages/applyList/applyList'
+				url: e.path
 			});
 		},
 
@@ -79,6 +74,9 @@ export default {
 				url: `/pages/compage/chat/chat?params=${params}`
 			});
 		}
+	},
+	onHide() {
+		this.contacts = [];
 	}
 };
 </script>

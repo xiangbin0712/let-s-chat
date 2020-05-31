@@ -26,6 +26,18 @@ class User {
 		})
 	}
 
+	// updataUser
+	static updataUser(user_id,value, type) {
+		return Http.request({
+			url: `/user/update`,
+			data: {
+				user_id,
+				value,
+				type
+			}
+		})
+	}
+
 
 }
 

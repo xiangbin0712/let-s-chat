@@ -4,9 +4,9 @@
 		<view class="user-info bg-white border-bottom flex-row">
 			<image class="avatar mx-3 round-md" src="../../../static/images/friend.png" mode=""></image>
 			<view class="userinfo-riht">
-				<text class="nickname text-bold">Mine</text>
-				<text class="username font-30 text-three-color mt-1">账号:xxxxx</text>
-				<text class="area font-30 text-three-color mt-1">地区:xxx</text>
+				<text class="nickname text-bold">{{ info.nickname || info.username }}</text>
+				<text class="username font-30 text-three-color mt-1">账号:{{ info.username }}</text>
+				<text class="area font-30 text-three-color mt-1" v-if="info.area">地区:{{ info.area }}</text>
 			</view>
 		</view>
 
@@ -20,12 +20,12 @@
 		</view>
 
 		<!-- 发消息  -->
-		<view class="list flex-center bg-white flex-row" v-if="!isFriend">
+		<view class="list flex-center bg-white flex-row" v-if="_isFriend">
 			<text class="list-text font-40 text-bold iconfont mr-1">&#xe61c;</text>
-			<text class="list-text font-40 text-bold">发消息</text>
+			<text class="list-text font-35 text-bold">发消息</text>
 		</view>
 		<!-- 添加好友 -->
-		<view class="list bg-white flex-center" v-else><text class="list-text text-bold font-40">添加到通讯录</text></view>
+		<view @click="applyFriend" class="list bg-white flex-center" v-else><text class="list-text text-bold font-35">添加到通讯录</text></view>
 	</view>
 </template>
 
@@ -39,21 +39,14 @@ export default {
 		return {
 			friendId: '',
 			info: null,
-			isFriend: 1 // 0好友 1/不是
+			isFriend: null // 0好友 1/不是
 		};
 	},
 	computed: {
-		...mapState(['userInfo']),
-		//  添加通讯录是否显示  不是好友并且不是自己
-		addShow() {
-			const isMe = this.userInfo._id == this.friendId;
-			if (this.isFriend && !isMe) return true;
-			return false;
-		},
-		// 发送消息是否显示  是好友 或者是自己
-		sendShow() {
-			const isMe = this.userInfo._id == this.friendId;
-			if (!this.isFriend || isMe) return true;
+		...mapState(['user']),
+		_isFriend() {
+			const isMe = this.user._id == this.friendId;
+			if (this.isFriend || isMe) return true;
 			return false;
 		}
 	},
@@ -62,9 +55,11 @@ export default {
 		}
 	},
 	onLoad(options) {
-		options.id ? (this.friendId = options.id) : '';
-		// this.getUser(); //获取用户信息
-		// this.checkFriend(); //是否好友
+		if (options.id) {
+			this.friendId = options.id;
+			this.getUser(); //获取用户信息
+			this.checkFriend(); //是否好友
+		}
 	},
 	methods: {
 		async getUser() {
@@ -74,16 +69,16 @@ export default {
 
 		// 是否好友
 		async checkFriend() {
-			// 0 是好友  1 不是
-			const res = await Friend.checkIsFriend(this.userInfo._id, this.friendId);
-			res.data.msg == 'isFriend' ? (this.isFriend = 1) : (this.isFriend = 0);
+			const res = await Friend.checkIsFriend(this.user._id, this.friendId);
+			res.data.msg == 'isFriend' ? (this.isFriend = true) : (this.isFriend = false);
 		},
 		send() {},
 
 		// 好友申请
 		applyFriend() {
+			const nickname = this.info.nickname||this.info.username
 			uni.navigateTo({
-				url: `../applyFriend/applyFriend?friendId=${this.friendId}`
+				url: `/pages/friend/applyFriend/applyFriend?friendId=${this.friendId}&nickname=${nickname}`
 			});
 		}
 	}

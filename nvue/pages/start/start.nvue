@@ -1,0 +1,45 @@
+<template>
+	<view class="flex-1 flex-center">
+		<text>加载中...</text>
+		<text>测试:{{ token }}</text>
+		<!-- <button type="default" @click="set">set</button> -->
+		<!-- <button type="default" @click="init">get</button> -->
+		<!-- <button type="default" @click="get1">get1</button> -->
+	</view>
+</template>
+<script>
+import { mapState, mapMutations, mapActions } from 'vuex';
+import { getStorage } from '../../utils/util.js';
+export default {
+	data() {
+		return {};
+	},
+
+	computed: {
+		...mapState({
+			token: state => state.token
+		})
+	},
+	mounted() {
+		this.goto();
+	},
+
+	methods: {
+		goto() {
+			setTimeout(() => {
+				if (this.token) {
+					uni.switchTab({
+						url: '/pages/tabbar/index/index'
+					});
+					return;
+				}
+				uni.navigateTo({
+					url: '../login/login'
+				});
+			}, 700);
+		}
+	}
+};
+</script>
+
+<style></style>

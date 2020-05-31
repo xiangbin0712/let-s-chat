@@ -5,10 +5,11 @@ import {
 	config
 } from "@/config/config.js"
 export default {
+	namespaced: true,
 	state: {
-		user: null,
+		user: {},
 		token: "",
-		chat: null
+		chat: null,
 	},
 	mutations: {
 		// 存储token
@@ -16,31 +17,37 @@ export default {
 			state.token = token || ''
 		},
 		SET_USER: (state, user) => {
-			state.user = user || null
+			state.user = user || {}
 		},
 		SET_CHAT: (state, chat) => {
 			state.chat = chat || null
 		}
 	},
 	actions: {
+		init({
+			commit
+		}, data) {
+			console.log("vuex,init")
+		},
 		INITLOGIN: ({
 			commit
 		}) => {
 			// 初始化登录信息
+			console.log("loginINit")
 			const token = uni.getStorageSync("token")
 			const user = uni.getStorageSync("user")
-			console.log(token,user)
+			console.log(user, "1313131211111111111111111111111")
 			if (token) {
 				commit('SET_TOKEN', token)
 				commit('SET_USER', user)
 
 				// 连接socket
-				let chat = new Chat({
-					user,
-					token,
-					url: config.wsUrl
-				})
-				commit('SET_CHAT', chat)
+				// let chat = new Chat({
+				// 	user,
+				// 	token,
+				// 	url: config.wsUrl
+				// })
+				// commit('SET_CHAT', chat)
 			}
 		},
 		LOGIN: ({
@@ -50,15 +57,21 @@ export default {
 			commit('SET_USER', user)
 
 			// 存储到本地
-			uni.setStorageSync("token", user.token)
-			uni.setStorageSync("user", user)
+			uni.setStorage({
+				key: "user",
+				data: user
+			})
+			uni.setStorage({
+				key: "token",
+				data: user.token
+			})
 
 			// 连接socket
-			let chat = new Chat({
-				user,
-				url: config.wsUrl
-			})
-			commit('SET_CHAT', chat)
+			// let chat = new Chat({
+			// 	user,
+			// 	url: config.wsUrl
+			// })
+			// commit('SET_CHAT', chat)
 		},
 		LOGOUT: ({
 			commit,
@@ -75,4 +88,5 @@ export default {
 			commit('SET_CHAT', null)
 		},
 	}
+
 }
