@@ -8,7 +8,7 @@ export default {
 		domModule.addRule('fontFace', {
 			fontFamily: 'iconfont',
 			// src: "url('https://at.alicdn.com/t/font_1365296_2ijcbdrmsg.ttf')",
-			src: "url('http://at.alicdn.com/t/font_1630639_0jh16dsvmhy.ttf')"
+			src: "url('http://at.alicdn.com/t/font_1630639_7potdwwxdq5.ttf')"
 		});
 		// #endif
 

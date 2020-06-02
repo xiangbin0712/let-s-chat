@@ -94,7 +94,8 @@ export default {
 		clickMenu(item) {}
 	},
 	onHide() {
-		this.$refs.topBar.close();
+		// this.$refs.topBar.close();
+		console.log(this.$refs.topBar, 123);
 	}
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
 	<view class="flex-1 bg-main">
 		<scroll-view scroll-y="true" class="flex-1">
-			<view class="item  align-center flex-row" v-for="(item, i) in applyList" :key="i">
+			<view class="item bg-white align-center flex-row" v-for="(item, i) in applyList" :key="i">
 				<image class="avatar ml-2 round-md" :src="item.user_id.avatar" mode=""></image>
-				<view class="right py-1 flex-row border-bottom  flex-1 align-center justify-between mx-3">
+				<view class="right py-2 flex-row border-bottom  flex-1 align-center justify-between mx-3">
 					<view class="text">
 						<text class="font-35">{{ item.user_id.nickname || item.user_id.username }}</text>
 						<text class="font-30 text-sec-color">{{ item.apply_value }}</text>

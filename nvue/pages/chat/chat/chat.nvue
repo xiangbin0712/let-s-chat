@@ -1,0 +1,89 @@
+<template>
+	<view class="flex-1">
+		<navigator-bar custom title="temp"><icon-button @clickIcon="clickIcon" icon="\ue61d"></icon-button></navigator-bar>
+		<!-- 聊天内容区域 -->
+		<scroll-view scroll-y :style="_bottomHeight" class="chat-content bg-main flex-1">
+			<!-- 聊天信息内容 -->
+			<!-- 传递上一条消息的时间戳 如果该条是第一条 不用显示 -->
+			<chat-list-item v-for="(item, i) in chatList" :key="i" :pretime="i > 0 ? chatList[i - 1].create_time : 0" :data="item"></chat-list-item>
+		</scroll-view>
+		<!-- buttom input -->
+		<view id="bottom-input" class="bottom-input temp-border flex-row align-center">
+			<icon-button @clickIcon="clickIcon" icon="\ue70b"></icon-button>
+			<view class="flex-1 textarea-box round-sm bg-white"><textarea cursor-spacing="1000" auto-height class="textarea" fixed /></view>
+			<icon-button @clickIcon="clickIcon" icon="\ue609"></icon-button>
+			<icon-button @clickIcon="clickIcon" icon="\ue629"></icon-button>
+		</view>
+	</view>
+</template>
+
+<script>
+import navigatorBar from '@/components/ui/navigation-bar.vue';
+import iconButton from '@/components/ui/icon-button.vue';
+import chatListItem from '@/components/ui/chat-list-item.vue';
+export default {
+	components: {
+		chatListItem,
+		iconButton,
+		navigatorBar
+	},
+	data() {
+		return {
+			bottomHeight: 0,
+			chatList: [
+				{
+					avatar: '/static/images/friend.png',
+					user_id: 1,
+					type: 'text',
+					content: '123123',
+					create_time: 1591073932
+				},
+				{
+					avatar: '/static/images/friend.png',
+					user_id: 2,
+					type: 'text',
+					content: '哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈',
+					create_time: 1591093932
+				},
+				{
+					avatar: '/static/images/friend.png',
+					user_id: 2,
+					type: 'text',
+					content: '哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈',
+					create_time: 1591093934
+				}
+			]
+		};
+	},
+	computed: {
+		_bottomHeight() {
+			return `margin-bottom: ${this.bottomHeight}px;`;
+		}
+	},
+	mounted() {
+		this.getBottomHeight();
+	},
+	methods: {
+		getBottomHeight() {
+			let query = uni.createSelectorQuery().in(this);
+			query.select('#bottom-input').boundingClientRect();
+			query.exec(res => {
+				this.bottomHeight = res[0].height;
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.bottom-input {
+	position: fixed;
+	bottom: 0;
+	width: 750rpx;
+	background-color: #f7f7f6;
+}
+.textarea-box {
+	padding-top: 6rpx;
+	padding-bottom: 6rpx;
+}
+</style>

@@ -8,7 +8,8 @@
 	/* 5+App特有相关 */
 	"app-plus": {
 		"renderer": "native",
-		"nvueCompiler": "uni-app",
+		// "nvueCompiler": "uni-app",
+		"nvueCompiler":"weex",  
 		"usingComponents": true,
 		"compilerVersion": 3,
 		"splashscreen": {

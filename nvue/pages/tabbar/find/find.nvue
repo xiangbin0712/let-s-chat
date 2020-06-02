@@ -1,7 +1,7 @@
 <template>
 	<view class="bg-main flex-1">
 		<!--导航栏 -->
-		<navigator-bar title="发现">
+		<navigator-bar ref="topBar" title="发现">
 			<icon-button icon="\ue6e3"></icon-button>
 			<icon-button icon="\ue682"></icon-button>
 		</navigator-bar>
@@ -34,7 +34,10 @@ export default {
 			]
 		};
 	},
-	methods: {}
+	methods: {},
+	onHide() {
+		this.$refs.topBar.close();
+	}
 };
 </script>
 

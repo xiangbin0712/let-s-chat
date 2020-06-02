@@ -2,30 +2,30 @@
 	<view class="bg-main flex-1">
 		<!--导航栏 -->
 		<navigator-bar title="个人中心" custom></navigator-bar>
-		<view @click="clickAvatar" class="py-1 mx-2 align-center border-bottom flex-row justify-between">
-			<text class="title font-30 text-bold text-main-color">头像</text>
-			<view class="right flex-row align-center">
+		<view @click="clickAvatar" class="py-1 bg-white  align-center border-bottom flex-row justify-between">
+			<text class="title ml-2 font-30 text-bold text-main-color">头像</text>
+			<view class="right mr-2 flex-row align-center">
 				<image @click="preview" class="avatar" :src="user.avatar" mode=""></image>
 				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
 			</view>
 		</view>
-		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
-			<text class="title font-30 text-bold text-main-color">昵称</text>
-			<view class="right flex-row align-center">
+		<view class="list bg-white py-1  align-center border-bottom flex-row justify-between">
+			<text class="title ml-2 font-30 text-bold text-main-color">昵称</text>
+			<view class="right mr-2 flex-row align-center">
 				<text class="nickname">{{ user.nickname }}</text>
 				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
 			</view>
 		</view>
-		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
-			<text class="title font-30 text-bold text-main-color">账号</text>
-			<view class="right flex-row align-center">
+		<view class="list bg-white py-1  align-center border-bottom flex-row justify-between">
+			<text class="title ml-2 font-30 text-bold text-main-color">账号</text>
+			<view class="right flex-row mr-2 align-center">
 				<text class="nickname text-three-color font-30">{{ user.username }}</text>
 				<text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text>
 			</view>
 		</view>
-		<view class="list py-1 mx-2 align-center border-bottom flex-row justify-between">
-			<text class="title font-30 text-bold text-main-color">更多</text>
-			<view class="right flex-row align-center"><text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text></view>
+		<view class="list bg-white py-1  align-center border-bottom flex-row justify-between">
+			<text class="title ml-2 font-30 text-bold text-main-color">更多</text>
+			<view class="right mr-2 flex-row align-center"><text class="iconfont text-three-color font-30  ml-2">&#xe93d;</text></view>
 		</view>
 	</view>
 </template>

@@ -1,34 +1,37 @@
 <template>
 	<!-- 导航栏 -->
-	<view class="navigation-bar  flex sticky" :style="{ backgroundColor: bgc }">
-		<!-- 状态栏 -->
-		<view class="" :style="'height:' + statusBarHeight + 'px'"></view>
-		<!-- 导航 -->
-		<view class="w-100 flex  justify-between align-center flex-row" style="height: 90rpx;">
-			<!-- left -->
-			<view class="flex flex-row ml-3 ">
-				<!-- 标题 -->
-				<text class="text-bold font-35" v-if="title">{{ title }}</text>
-				<text class="font-35" v-if="number">({{ number }})</text>
-			</view>
-			<!-- right -->
-			<!-- 自定义 -->
-			<view class="" v-if="custom"><slot></slot></view>
-			<!-- 默认 -->
-			<view class="flex-row" v-else>
-				<icon-button @clickIcon="search" icon="\ue630"></icon-button>
-				<icon-button @clickIcon="add" icon="\ue629"></icon-button>
-			</view>
-		</view>
-		<!-- 扩展菜单 -->
-		<cPopup ref="popup" transformOrigin="right top" :width="270" :height="height">
-			<view class="popup-content flex-1 round-md">
-				<view @click="clickMenu(item)" class="popup-list-item pl-3 align-center  flex-1 flex-row" v-for="(item, i) in menus" :key="i">
-					<text class="text-white iconfont mr-2 font-30">{{ item.icon }}</text>
-					<text class="text-white font-30">{{ item.text }}</text>
+	<view class="container">
+		<view class="navigation-bar flex " :style="{ backgroundColor: bgc }">
+			<!-- 状态栏 -->
+			<view class="" :style="'height:' + statusBarHeight + 'px'"></view>
+			<!-- 导航 -->
+			<view class="w-100 flex  justify-between align-center flex-row" style="height: 90rpx;">
+				<!-- left -->
+				<view class="flex flex-row ml-3 ">
+					<!-- 标题 -->
+					<text class="text-bold font-35" v-if="title">{{ title }}</text>
+					<text class="font-35" v-if="number">({{ number }})</text>
+				</view>
+				<!-- right -->
+				<!-- 自定义 -->
+				<view class="" v-if="custom"><slot></slot></view>
+				<!-- 默认 -->
+				<view class="flex-row" v-else>
+					<icon-button @clickIcon="search" icon="\ue630"></icon-button>
+					<icon-button @clickIcon="add" icon="\ue629"></icon-button>
 				</view>
 			</view>
-		</cPopup>
+			<!-- 扩展菜单 -->
+			<cPopup ref="popup" transformOrigin="right top" :width="270" :height="height">
+				<view class="popup-content flex-1 round-md">
+					<view @click="clickMenu(item)" class="popup-list-item pl-3 align-center  flex-1 flex-row" v-for="(item, i) in menus" :key="i">
+						<text class="text-white iconfont mr-2 font-30">{{ item.icon }}</text>
+						<text class="text-white font-30">{{ item.text }}</text>
+					</view>
+				</view>
+			</cPopup>
+		</view>
+		<view class="chunk temp-border" :style="chunkHeight"><!-- 占位 --></view>
 	</view>
 </template>
 
@@ -58,6 +61,10 @@ export default {
 	computed: {
 		height() {
 			return this.menus.length * 100;
+		},
+		chunkHeight() {
+			const height = uni.upx2px(90) + this.statusBarHeight;
+			return `height:${height}px`;
 		}
 	},
 
@@ -120,6 +127,11 @@ export default {
 </script>
 
 <style scoped>
+.navigation-bar {
+	position: fixed;
+	top: 0;
+	width: 750rpx;
+}
 .sticky {
 	position: sticky;
 }

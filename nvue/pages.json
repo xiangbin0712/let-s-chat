@@ -6,7 +6,11 @@
 		// 	"style": {}
 		// },
 		{
-			"path": "pages/user/userDetail/userDetail",
+			"path": "pages/chat/chat/chat",
+			"style": {}
+		},
+		{
+			"path": "pages/tabbar/index/index",
 			"style": {}
 		},
 		{
@@ -17,10 +21,7 @@
 			"path": "pages/login/login",
 			"style": {}
 		},
-		{
-			"path": "pages/tabbar/index/index",
-			"style": {}
-		},
+
 
 		{
 			"path": "pages/find/moment/moment",
@@ -89,9 +90,13 @@
 		{
 			"path": "pages/compage/chat/chat",
 			"style": {}
+		},
+		{
+			"path": "pages/user/userDetail/userDetail",
+			"style": {}
 		}
 
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		// "navigationBarTitleText": "Let's Chat",
